@@ -168,17 +168,6 @@ export const LinguistFlowAPI = {
         return true
     },
 
-    async verifyAppPassword(password: string): Promise<boolean> {
-        const response = await fetch(`${API_BASE}/verify_app_password`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ password })
-        })
-        if (!response.ok) return false
-        const data = await response.json()
-        return data.valid === true
-    },
-
     async approveDraft(draftId: string, clientCredentials: { url: string, username: string, appPassword: string }, contentOverrides?: { title?: string, excerpt?: string, content?: string, template?: string }): Promise<{ status: string, post_id: number }> {
         const response = await fetch(`${API_BASE}/approve_draft`, {
             method: 'POST',

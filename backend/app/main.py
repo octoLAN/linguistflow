@@ -215,20 +215,6 @@ app.include_router(widget_router)   # public widget feed – no auth
 async def health():
     return {"status": "ok", "app": settings.app_name}
 
-# ── Global App Password ───────────────────────────────────────────────────────
-class AppPasswordPayload(BaseModel):
-    password: str
-
-@app.post("/api/verify_app_password", tags=["system"])
-async def verify_app_password(payload: AppPasswordPayload):
-    """Verifies the global app password for the React frontend."""
-    if not settings.app_password:
-        return {"valid": True}  # If no password is set in .env, always allow access
-    
-    if payload.password == settings.app_password:
-        return {"valid": True}
-    return {"valid": False}
-
 # ── Schedule config sync (called by frontend on every auto-save) ──────────────
 
 class ScheduleConfigPayload(BaseModel):

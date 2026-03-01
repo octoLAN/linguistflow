@@ -36,10 +36,15 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    restart: unless-stopped
+    restart: always
     env_file: .env
     environment:
-      APP_PASSWORD: ${APP_PASSWORD:-}
+      ALGORITHM: ${ALGORITHM:-HS256}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-60}
+      APP_NAME: ${APP_NAME:-LinguistFlow}
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
+      DEBUG: ${DEBUG:-false}
+      LOG_CLIENT_IPS: ${LOG_CLIENT_IPS:-false}
     ports:
       - "8000:8000"
     depends_on:

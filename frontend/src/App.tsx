@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Routes, Route, NavLink } from 'react-router-dom'
 import {
-    LayoutDashboard, PenTool, Clock, Users, Sun, Moon, Zap, ChevronRight, Sparkles, Lock
+    LayoutDashboard, PenTool, Clock, Users, Sun, Moon, Zap, ChevronRight, Sparkles
 } from 'lucide-react'
 import { LinguistFlowAPI } from './lib/api'
 import Dashboard from './pages/Dashboard'
@@ -162,72 +162,6 @@ function AgentBanner({ status }: { status: AgentStatus | null }) {
     )
 }
 
-// ── LockScreen ───────────────────────────────────────────────────────────────
-function LockScreen({ onUnlock, isDark }: { onUnlock: () => void, isDark: boolean }) {
-    const [password, setPassword] = useState('')
-    const [error, setError] = useState(false)
-    const [loading, setLoading] = useState(false)
-
-    // Check silently on mount if no password (server config empty)
-    useEffect(() => {
-        LinguistFlowAPI.verifyAppPassword('').then(valid => {
-            if (valid) onUnlock()
-        }).catch(() => { })
-    }, [onUnlock])
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        setLoading(true)
-        setError(false)
-        try {
-            const valid = await LinguistFlowAPI.verifyAppPassword(password)
-            if (valid) {
-                onUnlock()
-            } else {
-                setError(true)
-                setPassword('')
-            }
-        } catch {
-            setError(true)
-        }
-        setLoading(false)
-    }
-
-    return (
-        <div className={`fixed inset-0 z-[10000] flex flex-col items-center justify-center ${isDark ? 'dark bg-[#141414]' : 'bg-[#f7f7f8]'}`}>
-            <div className="w-full max-w-sm px-6">
-                <div className="flex flex-col items-center mb-8">
-                    <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4" style={{ background: '#2563eb' }}>
-                        <Lock style={{ width: 24, height: 24, paddingBottom: 2, color: 'white' }} />
-                    </div>
-                    <h1 className="text-2xl font-bold tracking-tight" style={{ color: isDark ? '#fff' : '#000' }}>LinguistFlow</h1>
-                    <p className="text-sm mt-1" style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)' }}>Bitte Passwort eingeben.</p>
-                </div>
-
-                <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-                    <input
-                        type="password"
-                        autoFocus
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        placeholder="App-Passwort…"
-                        className={`w-full h-12 px-4 rounded-xl border outline-none transition-all ${isDark ? 'bg-[#0d0d0d] border-[#333] text-white focus:border-blue-500' : 'bg-white border-gray-200 text-black focus:border-blue-500'}`}
-                        style={error ? { borderColor: '#ef4444' } : {}}
-                    />
-                    <button
-                        type="submit"
-                        disabled={!password || loading}
-                        className="w-full h-12 rounded-xl text-white font-medium flex items-center justify-center transition-all disabled:opacity-50"
-                        style={{ background: '#2563eb' }}
-                    >
-                        {loading ? 'Prüfe...' : 'Entsperren'}
-                    </button>
-                </form>
-            </div>
-        </div>
-    )
-}
-
 // ── App ───────────────────────────────────────────────────────────────────────
 export default function App() {
     const [connectedSites, setConnectedSites] = useState<ConnectedSite[]>(() =>
@@ -240,11 +174,6 @@ export default function App() {
 
     const [isDark, setIsDark] = useState<boolean>(() =>
         localStorage.getItem('lf_theme') !== 'light'
-    )
-
-    // Auth State
-    const [isUnlocked, setIsUnlocked] = useState<boolean>(() =>
-        load('lf_unlocked', false)
     )
 
     useEffect(() => {
@@ -283,13 +212,6 @@ export default function App() {
     }, [])
 
     const agentBusy = agentStatus?.is_busy
-
-    if (!isUnlocked) {
-        return <LockScreen isDark={isDark} onUnlock={() => {
-            setIsUnlocked(true)
-            localStorage.setItem('lf_unlocked', 'true') // Persist session
-        }} />
-    }
 
     return (
         <div className={`flex min-h-screen ${isDark ? 'dark' : ''}`}

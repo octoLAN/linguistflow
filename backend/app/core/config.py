@@ -45,9 +45,6 @@ class Settings(BaseSettings):
     # GEO-Elite
     serp_api_key: str = ""
 
-    # App Password Protection
-    app_password: str = ""
-
 
 
 

@@ -1,0 +1,32 @@
+name: Deploy to Hostinger VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: 22
+          script: |
+            if [ ! -d "linguistflow" ]; then
+              git clone https://github.com/octoLAN/linguistflow.git
+              cd linguistflow
+              cp .env.example .env
+            else
+              cd linguistflow
+              git checkout main
+              git reset --hard origin/main
+              git pull origin main
+            fi
+            chmod +x deploy.sh
+            ./deploy.sh

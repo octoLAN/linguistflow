@@ -1,4 +1,7 @@
-const API_BASE = 'http://localhost:8000/api'
+const isProduction = import.meta.env.PROD;
+const API_BASE = isProduction
+    ? `http://${window.location.hostname}:8000/api`
+    : 'http://localhost:8000/api';
 
 // ── A. Layout-Ebene ────────────────────────────────────────────────────────────
 export interface LayoutOptions {

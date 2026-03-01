@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LinguistFlow – KI-Content-Autopilot für WordPress</title>
+    <meta name="description"
+        content="LinguistFlow generiert vollautomatisch SEO-optimierte Artikel für deine WordPress-Seiten – rund um die Uhr, ohne Aufwand." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #141414;
+            --surface: #1c1c1c;
+            --surface2: #222222;
+            --border: rgba(255, 255, 255, 0.07);
+            --blue: #2563eb;
+            --blue-lt: #93c5fd;
+            --blue-glow: rgba(37, 99, 235, 0.4);
+            --text: #f0f0f0;
+            --muted: rgba(255, 255, 255, 0.45);
+            --radius: 1.25rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            height: 68px;
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border-bottom: 1px solid transparent;
+            transition: background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
+        }
+
+        nav.nav--scrolled {
+            background: rgba(20, 20, 20, 0.55);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-weight: 800;
+            font-size: 1.6rem;
+            letter-spacing: -0.02em;
+            color: white;
+        }
+
+        .nav-brand-dot2 {
+            color: #1e3a8a;
+            font-size: 2em;
+            line-height: 0;
+            vertical-align: -0.1em;
+            margin-left: -0.12em;
+            letter-spacing: -0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-cta {
+            background: white;
+            color: #141414;
+            font-size: 0.875rem;
+            font-weight: 700;
+            padding: 0.5rem 1.25rem;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: background 0.15s, transform 0.15s;
+        }
+
+        .nav-cta:hover {
+            background: #e0e9ff;
+            transform: translateY(-1px);
+        }
+
+        /* ── SECTIONS ── */
+        section {
+            padding: 7rem 5%;
+        }
+
+        .container {
+            max-width: 1160px;
+            margin: 0 auto;
+        }
+
+        /* ── HERO ── */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 68px;
+            padding-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #141414 0%, #2563eb 100%);
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -150px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.375rem 0.875rem;
+            border-radius: 999px;
+            margin-bottom: 1.75rem;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-badge .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.4
+            }
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+            color: white;
+        }
+
+        .gradient-text {
+            color: white;
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.7;
+            max-width: 500px;
+            margin: 0 0 2rem;
+        }
+
+        /* Benefits list */
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.875rem;
+        }
+
+        .benefits-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.55;
+        }
+
+        .benefit-check {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+        }
+
+        .benefit-check svg {
+            width: 12px;
+            height: 12px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .benefit-title {
+            font-weight: 700;
+            color: white;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        /* Tech strip */
+        .hero-tech {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0;
+        }
+
+        .hero-tech-label {
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0;
+            text-transform: none;
+            color: rgba(255, 255, 255, 0.45);
+            white-space: nowrap;
+            margin-bottom: 0.6rem;
+        }
+
+        .hero-tech-logos {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .hero-tech-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            opacity: 0.65;
+            transition: opacity 0.2s;
+        }
+
+        .hero-tech-item:hover {
+            opacity: 1;
+        }
+
+        .hero-tech-item svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+            flex-shrink: 0;
+        }
+
+        .hero-tech-item span {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            white-space: nowrap;
+        }
+
+        .hero-tech-divider {
+            width: 1px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: #141414;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.875rem 2rem;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #e0e9ff;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.875rem 2rem;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: color 0.2s, border-color 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+        }
+
+        .btn-secondary:hover {
+            color: white;
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .hero-stat-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 2rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-val {
+            font-size: 1.75rem;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            color: white;
+        }
+
+        .stat-lbl {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 2px;
+        }
+
+        .stat-sep {
+            width: 1px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ── CUSTOM VIDEO PLAYER ── */
+        .hero-video-wrap {
+            position: relative;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            background: #141414;
+            aspect-ratio: 16/10;
+            cursor: none;
+        }
+
+        .hero-video-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0.85;
+            transition: opacity 0.3s;
+        }
+
+        .hero-video-wrap:hover img {
+            opacity: 1;
+        }
+
+        /* Custom cursor — the play circle */
+        .vid-cursor {
+            position: fixed;
+            width: 72px;
+            height: 72px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.7);
+            transition: opacity 0.18s ease, transform 0.18s ease;
+            z-index: 9999;
+        }
+
+        .vid-cursor svg {
+            width: 22px;
+            height: 22px;
+            fill: #2563eb;
+            margin-left: 3px;
+            /* optical center for play triangle */
+        }
+
+        .hero-video-wrap:hover~.vid-cursor,
+        .vid-cursor.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Play label under cursor */
+        .vid-cursor::after {
+            content: 'Abspielen';
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: white;
+            white-space: nowrap;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* ── PRODUCT SCREENSHOT HERO ── */
+        .hero-img-wrap {
+            max-width: 1100px;
+            margin: 4rem auto 0;
+            position: relative;
+        }
+
+        .hero-img-wrap::before {
+            display: none;
+        }
+
+        .hero-img-wrap::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            left: 10%;
+            right: 10%;
+            height: 80px;
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
+            filter: blur(24px);
+            z-index: -1;
+        }
+
+        .hero-img {
+            width: 100%;
+            border-radius: 0 0 var(--radius) var(--radius);
+            position: relative;
+            z-index: 1;
+            display: block;
+        }
+
+        .browser-bar {
+            background: #141414;
+            border-radius: var(--radius) var(--radius) 0 0;
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .browser-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .browser-url {
+            flex: 1;
+            background: #1c1c1c;
+            border-radius: 6px;
+            padding: 0.3rem 0.75rem;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.35);
+            margin: 0 0.5rem;
+        }
+
+        /* ── LOGOS / SOCIAL PROOF ── */
+        #logos {
+            padding: 3rem 5%;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+
+        #logos p {
+            color: var(--muted);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .logos-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .logo-pill {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-pill svg {
+            opacity: 0.75;
+        }
+
+        .logo-pill img {
+            display: block;
+            height: 26px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            opacity: 0.75;
+        }
+
+        /* ── SECTION HEADER ── */
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.75rem);
+            font-weight: 900;
+            letter-spacing: -0.035em;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        .section-sub {
+            color: var(--muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: 560px;
+        }
+
+        /* ── HOW IT WORKS ── */
+        #how {
+            background: var(--bg);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .step {
+            display: flex;
+            gap: 1.25rem;
+        }
+
+        .step-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            background: rgba(37, 99, 235, 0.15);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            color: var(--blue-lt);
+            font-size: 0.875rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-body h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.375rem;
+        }
+
+        .step-body p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .step-img {
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .step-img img {
+            width: 100%;
+            display: block;
+        }
+
+        /* ── FEATURES GRID ── */
+        #features {
+            background: var(--bg);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 3.5rem;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: background 0.2s;
+        }
+
+        .feature-card:hover {
+            background: var(--surface2);
+        }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(37, 99, 235, 0.12);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            font-size: 1.25rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            font-size: 0.875rem;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        /* ── SCREENSHOT SHOWCASE ── */
+        #showcase {
+            background: var(--bg);
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3.5rem;
+        }
+
+        .showcase-card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            transition: transform 0.3s ease;
+        }
+
+        .showcase-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .showcase-card .card-label {
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-label .dot-blue {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--blue);
+        }
+
+        .card-label span {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .showcase-card img {
+            width: 100%;
+            display: block;
+        }
+
+        /* ── TESTIMONIALS ── */
+        #testimonials {
+            background: var(--bg);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .testi {
+            background: var(--surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 1.75rem;
+        }
+
+        .testi-stars {
+            color: #fbbf24;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .testi-text {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+
+        .testi-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .testi-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue), #818cf8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .testi-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .testi-role {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        /* ── PRICING ── */
+        #pricing {
+            background: var(--bg);
+        }
+
+        .pricing-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .pricing-toggle span {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .toggle-badge {
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 999px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .pricing-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            background: var(--blue);
+            border-color: transparent;
+            box-shadow: 0 0 60px rgba(37, 99, 235, 0.4);
+        }
+
+        .pricing-card.featured * {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .pricing-card.featured h3,
+        .pricing-card.featured .price-val {
+            color: white;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            color: var(--blue);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            padding: 3px 12px;
+            border-radius: 999px;
+            text-transform: uppercase;
+        }
+
+        .pricing-card h3 {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--muted);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .price-val {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 1;
+        }
+
+        .price-val span {
+            font-size: 1rem;
+            opacity: 0.6;
+            font-weight: 500;
+        }
+
+        .price-desc {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin: 0.5rem 0 1.5rem;
+        }
+
+        .pricing-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 1.5rem 0;
+        }
+
+        .pricing-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 0.875rem;
+            color: var(--muted);
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--blue-lt);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .pricing-card.featured .pricing-features li::before {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .pricing-cta {
+            display: block;
+            text-align: center;
+            width: 100%;
+            background: rgba(37, 99, 235, 0.15);
+            color: var(--blue-lt);
+            font-weight: 700;
+            font-size: 0.875rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid rgba(37, 99, 235, 0.25);
+        }
+
+        .pricing-cta:hover {
+            background: var(--blue);
+            color: white;
+        }
+
+        .pricing-card.featured .pricing-cta {
+            background: white;
+            color: var(--blue);
+            border-color: transparent;
+        }
+
+        .pricing-card.featured .pricing-cta:hover {
+            background: #e0e9ff;
+        }
+
+        /* ── CTA BANNER ── */
+        #cta {
+            padding: 6rem 5%;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #3b82f6 100%);
+            border-radius: 2rem;
+            padding: 5rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(ellipse, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .cta-box h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            margin-bottom: 1rem;
+        }
+
+        .cta-box p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.05rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: var(--blue);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.875rem 2rem;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-white:hover {
+            background: #e0e9ff;
+            transform: translateY(-1px);
+        }
+
+        .btn-ghost-white {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.75);
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.875rem 2rem;
+            border-radius: 999px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: all 0.2s;
+        }
+
+        .btn-ghost-white:hover {
+            color: white;
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: gap;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-logo span {
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text);
+        }
+
+        .footer-copy {
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        /* ── ANIMATIONS ── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(200%);
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .step-img {
+                display: none;
+            }
+
+            .showcase-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── Navigation ──────────────────────────────────────────────────── -->
+    <nav>
+        <div class="nav-logo">
+            <span class="nav-brand">LinguistFlow<span class="nav-brand-dot2">.</span></span>
+        </div>
+        <div class="nav-links">
+            <a href="#how">Wie es funktioniert</a>
+            <a href="#features">Features</a>
+            <a href="#testimonials">Erfahrungen</a>
+            <a href="#pricing">Preise</a>
+        </div>
+        <a href="http://localhost:5173" class="nav-cta">Kostenlos starten →</a>
+    </nav>
+
+    <!-- ── Hero ────────────────────────────────────────────────────────── -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-inner">
+
+                <!-- Left: Text -->
+                <div class="hero-left">
+                    <h1>
+                        Content-Marketing auf Autopilot
+                    </h1>
+
+                    <ul class="benefits-list">
+                        <li>
+                            <span class="benefit-check"><svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></span>
+                            <span><span class="benefit-title">Echtzeit-Marktanalyse (SerpAPI):</span> Wir scannen die
+                                aktuellen Google-Suchergebnisse live. Ihr Content basiert auf harten Marktdaten und
+                                echten Nutzerfragen, nicht auf Vermutungen.</span>
+                        </li>
+                        <li>
+                            <span class="benefit-check"><svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></span>
+                            <span><span class="benefit-title">Dominanz in der KI-Suche (GEO):</span> Gezielte
+                                Optimierung für Google AI Overviews und Perplexity. Ihr Unternehmen als zitierfähige
+                                Primärquelle in KI-Antworten.</span>
+                        </li>
+                        <li>
+                            <span class="benefit-check"><svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></span>
+                            <span><span class="benefit-title">Wissenschaftliche Validierung:</span> Maximale
+                                Glaubwürdigkeit durch OpenAlex-Anbindung. Jeder Artikel gestützt durch über 200 Mio.
+                                akademische Publikationen.</span>
+                        </li>
+                    </ul>
+
+                    <div class="hero-actions">
+                        <a href="http://localhost:5173" class="btn-primary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                            </svg>
+                            Jetzt kostenlos starten
+                        </a>
+                        <a href="#how" class="btn-secondary">
+                            Wie es funktioniert →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Custom Video Player -->
+                <div class="hero-video-wrap" id="heroVideo">
+                    <img src="assets/product-dashboard.png" alt="LinguistFlow App Preview" />
+                </div>
+                <!-- Custom cursor follows mouse over video -->
+                <div class="vid-cursor" id="vidCursor">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    </div>
+
+    <!-- ── How It Works ─────────────────────────────────────────────────── -->
+    <section id="how">
+        <div class="container">
+            <div class="steps">
+                <div>
+                    <p class="section-label">Wie es funktioniert</p>
+                    <h2 class="section-title">In 3 Schritten zum Content-Autopiloten</h2>
+                    <p class="section-sub" style="margin-bottom:2.5rem;">Du verbindest dein WordPress, stellst den
+                        Zeitplan ein — und LinguistFlow erledigt den Rest vollautomatisch.</p>
+
+                    <div class="steps-list">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-body">
+                                <h3>WordPress verbinden</h3>
+                                <p>Trage URL, Benutzername und App-Passwort ein. Die Verbindung steht in unter 2
+                                    Minuten.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-body">
+                                <h3>Zeitplan festlegen</h3>
+                                <p>Bestimme wie viele Artikel pro Woche, an welchen Tagen und zu welchen Uhrzeiten
+                                    veröffentlicht werden soll.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-body">
+                                <h3>Freigabe & Publish</h3>
+                                <p>Überprüfe KI-generierte Entwürfe im Freigabe-Center und veröffentliche mit einem
+                                    Klick direkt auf WordPress.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-img">
+                    <div class="browser-bar">
+                        <span class="browser-dot" style="background:#ff5f57"></span>
+                        <span class="browser-dot" style="background:#febc2e"></span>
+                        <span class="browser-dot" style="background:#28c840"></span>
+                        <div class="browser-url">Zeitplan & Automatisierung</div>
+                    </div>
+                    <img src="assets/product-schedule.png" alt="Zeitplan-Ansicht" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Features ─────────────────────────────────────────────────────── -->
+    <section id="features">
+        <div class="container">
+            <div style="max-width:600px;">
+                <p class="section-label">Features</p>
+                <h2 class="section-title">Alles was du für automatisierten WordPress-Content brauchst</h2>
+            </div>
+
+            <div class="features-grid fade-up">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>KI-Artikelgenerierung</h3>
+                    <p>Gemini Pro schreibt vollständige, lesbare Artikel basierend auf deinen Keywords und Zielen — ohne
+                        Floskeln.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Automatischer Zeitplan</h3>
+                    <p>Lege Kadenz, Wochentage und Uhrzeiten fest. Der Agent erstellt Entwürfe automatisch im Voraus.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>SEO-Optimierung</h3>
+                    <p>Jeder Artikel wird mit relevanten Keywords, Überschriften-Struktur und Meta-Daten für Google
+                        optimiert.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Freigabe-Center</h3>
+                    <p>Prüfe, bearbeite oder lösche KI-Entwürfe bevor sie live gehen. Du behältst jederzeit die
+                        Kontrolle.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Multi-Site-Verwaltung</h3>
+                    <p>Verwalte mehrere WordPress-Seiten aus einem Dashboard — ideal für Agenturen und SEOs mit mehreren
+                        Projekten.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Design-System</h3>
+                    <p>Artikel werden im Shadow DOM deines WordPress-Themes eingebettet — ohne Stil-Konflikte, immer
+                        sauber.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Showcase ─────────────────────────────────────────────────────── -->
+    <section id="showcase">
+        <div class="container">
+            <p class="section-label">Produkt-Einblick</p>
+            <h2 class="section-title">Sehen, was hinter den Kulissen passiert</h2>
+
+            <div class="showcase-grid fade-up">
+                <div class="showcase-card">
+                    <div class="card-label">
+                        <span class="dot-blue"></span>
+                        <span>Zeitplan & Automatisierung</span>
+                    </div>
+                    <img src="assets/product-schedule.png" alt="Zeitplan-Ansicht" />
+                </div>
+                <div class="showcase-card">
+                    <div class="card-label">
+                        <span class="dot-blue"></span>
+                        <span>Kunden-Setup & Integration</span>
+                    </div>
+                    <img src="assets/product-onboarding.png" alt="Kunden-Setup" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Testimonials ──────────────────────────────────────────────────── -->
+    <section id="testimonials">
+        <div class="container">
+            <p class="section-label" style="text-align:center;">Kundenstimmen</p>
+            <h2 class="section-title" style="text-align:center;margin:0 auto 0.5rem;">Was unsere Nutzer sagen</h2>
+            <p class="section-sub" style="margin:0 auto 3rem;text-align:center;">Reale Erfahrungen von Menschen, die
+                LinguistFlow täglich nutzen.</p>
+
+            <div class="testimonials-grid fade-up">
+                <div class="testi">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">"Endlich kein Content-Stress mehr. LinguistFlow schreibt täglich neue Artikel
+                        für mein Nischenblog — SEO-Ranking nach 4 Wochen schon spürbar besser."</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar">MK</div>
+                        <div>
+                            <div class="testi-name">Markus K.</div>
+                            <div class="testi-role">Nischenblog-Betreiber</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">"Wir managen 8 Kundenwebseiten damit. Der Zeitplan läuft komplett automatisch
+                        durch — wir prüfen nur noch kurz die Entwürfe vor der Freigabe."</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar">SB</div>
+                        <div>
+                            <div class="testi-name">Sarah B.</div>
+                            <div class="testi-role">SEO-Agentur Inhaberin</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">"Das Freigabe-Center ist perfekt. Ich sehe alle Entwürfe auf einen Blick, kann
+                        bearbeiten und mit einem Klick live schalten. Spart mir täglich 2 Stunden."</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar">TW</div>
+                        <div>
+                            <div class="testi-name">Thomas W.</div>
+                            <div class="testi-role">Affiliate-Marketer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Pricing ───────────────────────────────────────────────────────── -->
+    <section id="pricing">
+        <div class="container">
+            <p class="section-label" style="text-align:center;">Preise</p>
+            <h2 class="section-title" style="text-align:center;margin:0 auto 0.5rem;">Transparent & fair</h2>
+            <p class="section-sub" style="margin:0 auto 3rem;text-align:center;">Keine versteckten Kosten. Monatlich
+                kündbar.</p>
+
+            <div class="pricing-grid fade-up">
+                <!-- Starter -->
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price-val">€29<span>/Mo</span></div>
+                    <p class="price-desc">Perfekt für Einzelprojekte & Einsteiger.</p>
+                    <div class="pricing-divider"></div>
+                    <ul class="pricing-features">
+                        <li>1 WordPress-Seite</li>
+                        <li>Bis zu 8 Artikel / Woche</li>
+                        <li>KI-Freigabe-Center</li>
+                        <li>Zeitplan-Automatisierung</li>
+                        <li>E-Mail Support</li>
+                    </ul>
+                    <a href="http://localhost:5173" class="pricing-cta">Kostenlos starten</a>
+                </div>
+
+                <!-- Pro (Featured) -->
+                <div class="pricing-card featured">
+                    <div class="popular-badge">⚡ Beliebteste Wahl</div>
+                    <h3>Pro</h3>
+                    <div class="price-val">€69<span>/Mo</span></div>
+                    <p class="price-desc">Für wachsende Projekte & kleine Agenturen.</p>
+                    <div class="pricing-divider" style="background:rgba(255,255,255,0.2)"></div>
+                    <ul class="pricing-features">
+                        <li>Bis zu 5 WordPress-Seiten</li>
+                        <li>Unbegrenzte Artikel</li>
+                        <li>Alle KI-Features</li>
+                        <li>Editor & Design-System</li>
+                        <li>Priority Support</li>
+                        <li>Multi-Site-Dashboard</li>
+                    </ul>
+                    <a href="http://localhost:5173" class="pricing-cta">Jetzt Pro starten</a>
+                </div>
+
+                <!-- Agency -->
+                <div class="pricing-card">
+                    <h3>Agentur</h3>
+                    <div class="price-val">€149<span>/Mo</span></div>
+                    <p class="price-desc">Für Agenturen mit vielen Kundenprojekten.</p>
+                    <div class="pricing-divider"></div>
+                    <ul class="pricing-features">
+                        <li>Unbegrenzte Seiten</li>
+                        <li>Unbegrenzte Artikel</li>
+                        <li>White-Label-Option</li>
+                        <li>API-Zugang</li>
+                        <li>Dedizierter Support</li>
+                        <li>Custom Integrations</li>
+                    </ul>
+                    <a href="http://localhost:5173" class="pricing-cta">Agentur-Plan wählen</a>
+                </div>
+            </div>
+
+            <p style="text-align:center;color:var(--muted);font-size:0.85rem;margin-top:2rem;">
+                ✓ Keine Kreditkarte erforderlich &nbsp;·&nbsp; ✓ 14 Tage kostenlos testen &nbsp;·&nbsp; ✓ Jederzeit
+                kündbar
+            </p>
+        </div>
+    </section>
+
+    <!-- ── CTA Banner ────────────────────────────────────────────────────── -->
+    <section id="cta" style="padding: 5rem 5%;">
+        <div class="container">
+            <div class="cta-box">
+                <h2>Starte deinen Content-Autopiloten heute</h2>
+                <p>Keine Kreditkarte. Kostenlos starten. In 2 Minuten bereit.</p>
+                <div class="cta-row">
+                    <a href="http://localhost:5173" class="btn-white">
+                        ⚡ Kostenlos starten
+                    </a>
+                    <a href="#how" class="btn-ghost-white">
+                        Wie es funktioniert →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Footer ────────────────────────────────────────────────────────── -->
+    <footer>
+        <div class="footer-logo">
+            <div class="nav-logo-mark" style="width:28px;height:28px;border-radius:8px;box-shadow:none;">
+                <svg viewBox="0 0 24 24" style="width:14px;height:14px;">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                </svg>
+            </div>
+            <span>LinguistFlow</span>
+        </div>
+        <div class="footer-links">
+            <a href="#">Datenschutz</a>
+            <a href="#">Impressum</a>
+            <a href="#">AGB</a>
+            <a href="#">Support</a>
+        </div>
+        <p class="footer-copy">© 2026 LinguistFlow. DSGVO-konform · EU KI-VO § 52</p>
+    </footer>
+
+    <script>
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add('visible'); }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // Nav glassmorphism on scroll
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('nav--scrolled', window.scrollY > 10);
+        }, { passive: true });
+
+        // Custom cursor-as-playbutton for hero video
+        const videoEl = document.getElementById('heroVideo');
+        const cursor = document.getElementById('vidCursor');
+
+        if (videoEl && cursor) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+
+            videoEl.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            videoEl.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+
+            // Click: open a modal or link — placeholder opens in new tab
+            videoEl.addEventListener('click', () => {
+                alert('Demo-Video kommt bald!');
+            });
+        }
+    </script>
+</body>
+
+</html>

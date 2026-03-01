@@ -1,0 +1,74 @@
+<div class="ds-wrapper">
+    <div id="reading-progress"></div>
+
+    <!-- HERO EDGE-TO-EDGE -->
+    <section class="ds-hero-edge">
+        <div class="ds-container ds-hero-inner">
+            <nav class="ds-breadcrumbs">Magazin / Fachartikel</nav>
+            <h1>Volle Breite, Sticky Sidebar & CTAs</h1>
+            <p>Dieses Layout sprengt die Grenzen deines WordPress-Themes. Der Hintergrund geht von Kante zu Kante,
+                während der Text zentriert bleibt.</p>
+        </div>
+    </section>
+
+    <!-- MAIN GRID -->
+    <div class="ds-container ds-grid-layout">
+        <main class="ds-main-content">
+
+            <header class="ds-author-box">
+                <img src="https://ui-avatars.com/api/?name=Redaktion&background=007AFF&color=fff" alt="Autor">
+                <div><span>Publiziert von</span><br><strong>Der Redaktion</strong></div>
+            </header>
+
+            <nav class="ds-toc">
+                <h5>Inhalt dieses Artikels</h5>
+                <ul id="toc-list"></ul>
+            </nav>
+
+            <article class="ds-article" id="article-root">
+                <h2 id="section-1">1. Fließtext & Layout</h2>
+                <p>Hier steht der Haupttext. Wenn du am Desktop weiter nach unten scrollst, wirst du sehen, dass die
+                    rechte Seitenleiste stehen bleibt. Das ist der <code>position: sticky;</code> Effekt, der extrem
+                    wertvoll für Werbung ist.</p>
+
+                <!-- IN CONTENT CTA -->
+                <div class="ds-in-content-cta">
+                    <div class="ds-cta-text">
+                        <h4>Kostenloses Whitepaper</h4>
+                        <p>Lade dir unseren exklusiven 40-seitigen PDF-Guide herunter.</p>
+                    </div>
+                    <a href="#" class="ds-btn-primary">Download</a>
+                </div>
+
+                <h2 id="section-2">2. Warum dieses Layout konvertiert</h2>
+                <p>Durch die eingebetteten CTAs (Call to Actions) fängst du die Leser genau dort ab, wo sie am
+                    aufmerksamsten sind: mitten im Text. Sie übersehen die Werbung in der Sidebar vielleicht, aber den
+                    Block im Text sehen sie garantiert.</p>
+
+                <!-- IN CONTENT CTA 2 (Dunkel) -->
+                <div class="ds-in-content-cta"
+                    style="background: var(--ds-color-text-main); border-color: var(--ds-color-text-main);">
+                    <div class="ds-cta-text">
+                        <h4 style="color: white;">Abonniere den Newsletter</h4>
+                        <p style="color: rgba(255,255,255,0.7);">Verpasse keine Updates mehr und erhalte wöchentliche
+                            Tipps.</p>
+                    </div>
+                    <a href="#" class="ds-btn-primary"
+                        style="background: white; color: var(--ds-color-text-main);">Eintragen</a>
+                </div>
+
+                <h2 id="section-3">3. Technik hinter den Kulissen</h2>
+                <p>Da wir das <code>template</code> Tag nutzen, ist dieser gesamte HTML-Block absolut sicher vor dem
+                    Theme. Erst wenn das JavaScript feuert, wird der Content in den isolierten Shadow-DOM gezogen.</p>
+            </article>
+        </main>
+
+        <!-- RECHTE STICKY SIDEBAR -->
+        <aside class="ds-sidebar-right">
+            <div class="ds-ad-sticky">
+                <span class="ds-ad-label">Anzeige</span>
+                <div class="ds-ad-banner">300 x 600<br>Sticky Ad</div>
+            </div>
+        </aside>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" width="300" height="80">
+  <!-- Three-circle molecule mark -->
+  <circle cx="28" cy="22" r="14" fill="currentColor"/>
+  <circle cx="54" cy="22" r="14" fill="currentColor"/>
+  <circle cx="41" cy="46" r="14" fill="currentColor"/>
+  <!-- Wordmark -->
+  <text x="80" y="52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="currentColor">OpenAlex</text>
+</svg>

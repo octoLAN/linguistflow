@@ -1,0 +1,11 @@
+__pycache__
+*.pyc
+*.pyo
+.env
+.venv
+venv/
+*.log
+drafts_store.json
+schedule_store.json
+.pytest_cache
+.ruff_cache

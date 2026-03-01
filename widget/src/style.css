@@ -1,0 +1,643 @@
+/* ═══════════════════════════════════════════════════════════
+   LinguistFlow Widget — Premium Design System
+   Injected into Shadow DOM → 100% WordPress-CSS isolated
+   ═══════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ── Design Tokens ─────────────────────────────────────────── */
+:host {
+  display: block;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1;
+  box-sizing: border-box;
+
+  /* Light theme (default) */
+  --lf-bg: #ffffff;
+  --lf-bg-raised: #f8f8fc;
+  --lf-bg-card: #ffffff;
+  --lf-border: rgba(0, 0, 0, 0.07);
+  --lf-text: #0f0f12;
+  --lf-text-sub: #6b6b7a;
+  --lf-text-muted: #9999aa;
+  --lf-primary: #6c47ff;
+  --lf-primary-light: rgba(108, 71, 255, 0.1);
+  --lf-primary-glow: rgba(108, 71, 255, 0.35);
+  --lf-accent: #00c2ff;
+  --lf-accent-glow: rgba(0, 194, 255, 0.3);
+  --lf-badge-new-bg: #eef2ff;
+  --lf-badge-new-text: #6c47ff;
+  --lf-tag-bg: rgba(108, 71, 255, 0.08);
+  --lf-tag-text: #6c47ff;
+  --lf-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06), 0 8px 32px rgba(0, 0, 0, 0.04);
+  --lf-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.10), 0 20px 60px rgba(0, 0, 0, 0.06);
+  --lf-shadow-btn: 0 8px 24px rgba(108, 71, 255, 0.4);
+  --lf-radius-card: 20px;
+  --lf-radius-btn: 999px;
+  --lf-radius-tag: 8px;
+  --lf-featured-height: 320px;
+  --lf-card-height: 220px;
+}
+
+:host([theme="dark"]) {
+  --lf-bg: #09090d;
+  --lf-bg-raised: #111116;
+  --lf-bg-card: #13131a;
+  --lf-border: rgba(255, 255, 255, 0.07);
+  --lf-text: #f0f0f8;
+  --lf-text-sub: #a0a0b4;
+  --lf-text-muted: #606076;
+  --lf-primary: #836eff;
+  --lf-primary-light: rgba(131, 110, 255, 0.12);
+  --lf-primary-glow: rgba(131, 110, 255, 0.4);
+  --lf-accent: #00d4ff;
+  --lf-accent-glow: rgba(0, 212, 255, 0.35);
+  --lf-badge-new-bg: rgba(131, 110, 255, 0.15);
+  --lf-badge-new-text: #a78bfa;
+  --lf-tag-bg: rgba(131, 110, 255, 0.12);
+  --lf-tag-text: #a78bfa;
+  --lf-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.3), 0 8px 32px rgba(0, 0, 0, 0.2);
+  --lf-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.4), 0 20px 60px rgba(0, 0, 0, 0.3);
+  --lf-shadow-btn: 0 8px 24px rgba(131, 110, 255, 0.45);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  /* CRITICAL: Override any WordPress inherited styles */
+  text-transform: none !important;
+  letter-spacing: normal;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  border: none;
+}
+
+/* ── Root Container ────────────────────────────────────────── */
+.lf-widget {
+  background: var(--lf-bg);
+  color: var(--lf-text);
+  border-radius: 28px;
+  overflow: hidden;
+  max-width: 100%;
+  padding: 2.5rem;
+  box-shadow: 0 0 0 1px var(--lf-border);
+}
+
+/* ── Widget Header ─────────────────────────────────────────── */
+.lf-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--lf-border);
+}
+
+.lf-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lf-brand-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--lf-primary), var(--lf-accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px var(--lf-primary-glow);
+}
+
+.lf-brand-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lf-brand-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--lf-text);
+  letter-spacing: -0.01em;
+}
+
+.lf-brand-sub {
+  font-size: 0.72rem;
+  color: var(--lf-text-muted);
+  font-weight: 400;
+  display: block;
+  margin-top: 1px;
+}
+
+.lf-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lf-badge-new {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--lf-badge-new-bg);
+  color: var(--lf-badge-new-text);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.lf-badge-new::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lf-primary);
+  animation: lf-blink 2s ease-in-out infinite;
+}
+
+.lf-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: var(--lf-radius-btn);
+  background: var(--lf-primary-light);
+  color: var(--lf-primary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  border: none;
+  outline: none;
+}
+
+.lf-view-all:hover {
+  background: var(--lf-primary);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: var(--lf-shadow-btn);
+}
+
+.lf-view-all svg {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.2s;
+}
+
+.lf-view-all:hover svg {
+  transform: translateX(2px);
+}
+
+/* ── Section Title ─────────────────────────────────────────── */
+.lf-section-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--lf-text-muted);
+  text-transform: uppercase !important;
+  margin-bottom: 1rem;
+}
+
+/* ── Featured Post Card ────────────────────────────────────── */
+.lf-featured {
+  position: relative;
+  border-radius: var(--lf-radius-card);
+  overflow: hidden;
+  height: var(--lf-featured-height);
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 2rem;
+  box-shadow: var(--lf-shadow-card);
+  transition: transform 0.3s cubic-bezier(.16, 1, .3, 1), box-shadow 0.3s;
+  flex-shrink: 0;
+}
+
+.lf-featured:hover {
+  transform: translateY(-3px) scale(1.005);
+  box-shadow: var(--lf-shadow-hover);
+}
+
+.lf-featured-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(.16, 1, .3, 1);
+}
+
+.lf-featured:hover .lf-featured-img {
+  transform: scale(1.04);
+}
+
+.lf-featured-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.88) 0%,
+      rgba(0, 0, 0, 0.55) 45%,
+      rgba(0, 0, 0, 0.05) 100%);
+}
+
+.lf-featured-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.75rem;
+}
+
+.lf-featured-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.6rem;
+}
+
+.lf-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--lf-radius-tag);
+  background: var(--lf-primary);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+}
+
+.lf-date {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 400;
+}
+
+.lf-featured-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.lf-featured-excerpt {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.lf-read-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  border-radius: var(--lf-radius-btn);
+  background: linear-gradient(135deg, var(--lf-primary), var(--lf-accent));
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--lf-shadow-btn);
+  transition: transform 0.2s, box-shadow 0.2s;
+  letter-spacing: 0.01em;
+}
+
+.lf-read-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px var(--lf-primary-glow);
+}
+
+.lf-read-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Post Grid ─────────────────────────────────────────────── */
+.lf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ── Post Card ─────────────────────────────────────────────── */
+.lf-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--lf-radius-card);
+  overflow: hidden;
+  background: var(--lf-bg-card);
+  box-shadow: var(--lf-shadow-card);
+  border: 1px solid var(--lf-border);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.28s cubic-bezier(.16, 1, .3, 1), box-shadow 0.28s, border-color 0.28s;
+}
+
+.lf-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--lf-shadow-hover);
+  border-color: var(--lf-primary-light);
+}
+
+.lf-card-img-wrap {
+  height: 170px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--lf-bg-raised);
+}
+
+.lf-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(.16, 1, .3, 1);
+}
+
+.lf-card:hover .lf-card-img-wrap img {
+  transform: scale(1.06);
+}
+
+.lf-card-body {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  flex: 1;
+}
+
+.lf-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lf-tag-pill {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 6px;
+  background: var(--lf-tag-bg);
+  color: var(--lf-tag-text);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+}
+
+.lf-card-date {
+  font-size: 0.68rem;
+  color: var(--lf-text-muted);
+}
+
+.lf-card-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--lf-text);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.lf-card-excerpt {
+  font-size: 0.8rem;
+  color: var(--lf-text-sub);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.lf-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.7rem;
+  margin-top: 0.3rem;
+  border-top: 1px solid var(--lf-border);
+}
+
+.lf-card-readmore {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--lf-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  transition: gap 0.2s;
+}
+
+.lf-card:hover .lf-card-readmore {
+  gap: 8px;
+}
+
+.lf-card-readmore svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lf-read-time {
+  font-size: 0.68rem;
+  color: var(--lf-text-muted);
+}
+
+/* ── Footer ────────────────────────────────────────────────── */
+.lf-footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--lf-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lf-footer-brand {
+  font-size: 0.72rem;
+  color: var(--lf-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lf-footer-brand strong {
+  color: var(--lf-text-sub);
+  font-weight: 600;
+}
+
+.lf-footer-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--lf-text-muted);
+  opacity: 0.5;
+}
+
+.lf-subscribe-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: var(--lf-radius-btn);
+  background: var(--lf-primary-light);
+  color: var(--lf-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.lf-subscribe-btn:hover {
+  background: var(--lf-primary);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: var(--lf-shadow-btn);
+}
+
+/* ── Loading Skeleton ──────────────────────────────────────── */
+.lf-skeleton-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.lf-skeleton-featured {
+  height: var(--lf-featured-height);
+  border-radius: var(--lf-radius-card);
+  background: var(--lf-bg-raised);
+  animation: lf-shimmer 1.6s ease-in-out infinite;
+}
+
+.lf-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.lf-skeleton-card {
+  height: 240px;
+  border-radius: var(--lf-radius-card);
+  background: var(--lf-bg-raised);
+  animation: lf-shimmer 1.6s ease-in-out infinite;
+}
+
+.lf-skeleton-card:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.lf-skeleton-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* ── Animations ────────────────────────────────────────────── */
+@keyframes lf-shimmer {
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes lf-blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes lf-fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lf-widget .lf-header {
+  animation: lf-fadeInUp 0.4s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.lf-widget .lf-featured {
+  animation: lf-fadeInUp 0.45s 0.05s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.lf-widget .lf-grid {
+  animation: lf-fadeInUp 0.5s 0.1s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.lf-widget .lf-footer {
+  animation: lf-fadeInUp 0.55s 0.15s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+/* ── Error State ───────────────────────────────────────────── */
+.lf-error {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--lf-text-muted);
+  font-size: 0.85rem;
+}

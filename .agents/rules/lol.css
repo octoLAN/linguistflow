@@ -1,0 +1,16 @@
+:root {
+    /* VARIABLEN */
+    --ds-color-primary: #007AFF;
+    --ds-color-bg-main: #ffffff;
+    --ds-color-bg-sec: #f5f5f7;
+    --ds-color-bg-card: #ffffff;
+    --ds-color-text-main: #1d1d1f;
+    --ds-color-text-body: #424245;
+    --ds-color-text-muted: #86868b;
+    --ds-color-border: #d2d2d7;
+
+    --ds-font-family: 'Inter', -apple-system, sans-serif;
+    --ds-container-width: 1200px;
+    --ds-sidebar-width: 320px;
+    --ds-radius-lg: 16px;
+}

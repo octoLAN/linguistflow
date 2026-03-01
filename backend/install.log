@@ -1,0 +1,334 @@
+Installing dependencies from lock file
+
+Package operations: 1 install, 0 updates, 0 removals
+
+  - Installing asyncpg (0.29.0)
+
+PEP517 build of a dependency failed
+
+Backend subprocess exited when trying to invoke build_wheel
+
+    | Command '['/var/folders/kn/p9z7m0q10vd0f_f9sthqp5mw0000gn/T/tmpodmlmkrh/.venv/bin/python', '/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pyproject_hooks/_in_process/_in_process.py', 'build_wheel', '/var/folders/kn/p9z7m0q10vd0f_f9sthqp5mw0000gn/T/tmpyx_fx91q']' returned non-zero exit status 1.
+    | 
+    | /private/var/folders/kn/p9z7m0q10vd0f_f9sthqp5mw0000gn/T/tmpodmlmkrh/.venv/lib/python3.13/site-packages/setuptools/config/_apply_pyprojecttoml.py:82: SetuptoolsDeprecationWarning: `project.license` as a TOML table is deprecated
+    | !!
+    | 
+    |         ********************************************************************************
+    |         Please use a simple string containing a SPDX expression for `project.license`. You can also use `project.license-files`. (Both options available on setuptools>=77.0.0).
+    | 
+    |         By 2027-Feb-18, you need to update your project and remove deprecated calls
+    |         or your builds will no longer be supported.
+    | 
+    |         See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+    |         ********************************************************************************
+    | 
+    | !!
+    |   corresp(dist, value, root_dir)
+    | /private/var/folders/kn/p9z7m0q10vd0f_f9sthqp5mw0000gn/T/tmpodmlmkrh/.venv/lib/python3.13/site-packages/setuptools/config/_apply_pyprojecttoml.py:61: SetuptoolsDeprecationWarning: License classifiers are deprecated.
+    | !!
+    | 
+    |         ********************************************************************************
+    |         Please consider removing the following classifiers in favor of a SPDX license expression:
+    | 
+    |         License :: OSI Approved :: Apache Software License
+    | 
+    |         See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+    |         ********************************************************************************
+    | 
+    | !!
+    |   dist._finalize_license_expression()
+    | /private/var/folders/kn/p9z7m0q10vd0f_f9sthqp5mw0000gn/T/tmpodmlmkrh/.venv/lib/python3.13/site-packages/setuptools/dist.py:765: SetuptoolsDeprecationWarning: License classifiers are deprecated.
+    | !!
+    | 
+    |         ********************************************************************************
+    |         Please consider removing the following classifiers in favor of a SPDX license expression:
+    | 
+    |         License :: OSI Approved :: Apache Software License
+    | 
+    |         See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+    |         ********************************************************************************
+    | 
+    | !!
+    |   self._finalize_license_expression()
+    | running bdist_wheel
+    | running build
+    | running build_py
+    | creating build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | copying asyncpg/compat.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | copying asyncpg/_version.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | copying asyncpg/transaction.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | copying asyncpg/__init__.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | copying asyncpg/types.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | copying asyncpg/serverversion.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | copying asyncpg/prepared_stmt.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | copying asyncpg/connection.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | copying asyncpg/utils.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | copying asyncpg/cluster.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | copying asyncpg/connect_utils.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | copying asyncpg/introspection.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | copying asyncpg/connresource.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | copying asyncpg/pool.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | copying asyncpg/_asyncio_compat.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | copying asyncpg/cursor.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg
+    | creating build/lib.macosx-10.13-universal2-cpython-313/asyncpg/_testbase
+    | copying asyncpg/_testbase/__init__.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/_testbase
+    | copying asyncpg/_testbase/fuzzer.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/_testbase
+    | creating build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol
+    | copying asyncpg/protocol/__init__.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol
+    | creating build/lib.macosx-10.13-universal2-cpython-313/asyncpg/exceptions
+    | copying asyncpg/exceptions/_base.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/exceptions
+    | copying asyncpg/exceptions/__init__.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/exceptions
+    | creating build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | copying asyncpg/pgproto/__init__.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | copying asyncpg/pgproto/types.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | creating build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol/codecs
+    | copying asyncpg/protocol/codecs/__init__.py -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol/codecs
+    | running egg_info
+    | writing asyncpg.egg-info/PKG-INFO
+    | writing dependency_links to asyncpg.egg-info/dependency_links.txt
+    | writing requirements to asyncpg.egg-info/requires.txt
+    | writing top-level names to asyncpg.egg-info/top_level.txt
+    | reading manifest file 'asyncpg.egg-info/SOURCES.txt'
+    | reading manifest template 'MANIFEST.in'
+    | warning: no files found matching '*.py' under directory 'examples'
+    | adding license file 'LICENSE'
+    | adding license file 'AUTHORS'
+    | writing manifest file 'asyncpg.egg-info/SOURCES.txt'
+    | copying asyncpg/protocol/consts.pxi -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol
+    | copying asyncpg/protocol/coreproto.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol
+    | copying asyncpg/protocol/coreproto.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol
+    | copying asyncpg/protocol/cpythonx.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol
+    | copying asyncpg/protocol/encodings.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol
+    | copying asyncpg/protocol/pgtypes.pxi -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol
+    | copying asyncpg/protocol/prepared_stmt.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol
+    | copying asyncpg/protocol/prepared_stmt.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol
+    | copying asyncpg/protocol/protocol.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol
+    | copying asyncpg/protocol/protocol.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol
+    | copying asyncpg/protocol/scram.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol
+    | copying asyncpg/protocol/scram.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol
+    | copying asyncpg/protocol/settings.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol
+    | copying asyncpg/protocol/settings.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol
+    | copying asyncpg/pgproto/__init__.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | copying asyncpg/pgproto/buffer.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | copying asyncpg/pgproto/buffer.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | copying asyncpg/pgproto/consts.pxi -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | copying asyncpg/pgproto/cpythonx.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | copying asyncpg/pgproto/debug.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | copying asyncpg/pgproto/frb.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | copying asyncpg/pgproto/frb.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | copying asyncpg/pgproto/hton.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | copying asyncpg/pgproto/pgproto.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | copying asyncpg/pgproto/pgproto.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | copying asyncpg/pgproto/tohex.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | copying asyncpg/pgproto/uuid.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | copying asyncpg/protocol/codecs/array.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol/codecs
+    | copying asyncpg/protocol/codecs/base.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol/codecs
+    | copying asyncpg/protocol/codecs/base.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol/codecs
+    | copying asyncpg/protocol/codecs/pgproto.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol/codecs
+    | copying asyncpg/protocol/codecs/range.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol/codecs
+    | copying asyncpg/protocol/codecs/record.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol/codecs
+    | copying asyncpg/protocol/codecs/textutils.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol/codecs
+    | creating build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol/record
+    | copying asyncpg/protocol/record/__init__.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/protocol/record
+    | creating build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/__init__.pxd -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/bits.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/bytea.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/context.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/datetime.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/float.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/geometry.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/hstore.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/int.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/json.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/jsonpath.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/misc.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/network.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/numeric.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/pg_snapshot.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/text.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/tid.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | copying asyncpg/pgproto/codecs/uuid.pyx -> build/lib.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/codecs
+    | running build_ext
+    | building 'asyncpg.pgproto.pgproto' extension
+    | creating build/temp.macosx-10.13-universal2-cpython-313/asyncpg/pgproto
+    | clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -fno-common -dynamic -DNDEBUG -g -O3 -Wall -arch arm64 -arch x86_64 -I/private/var/folders/kn/p9z7m0q10vd0f_f9sthqp5mw0000gn/T/tmpodmlmkrh/.venv/include -I/Library/Frameworks/Python.framework/Versions/3.13/include/python3.13 -c asyncpg/pgproto/pgproto.c -o build/temp.macosx-10.13-universal2-cpython-313/asyncpg/pgproto/pgproto.o -O2 -fsigned-char -Wall -Wsign-compare -Wconversion
+    | asyncpg/pgproto/pgproto.c:864:59: warning: 'Py_UNICODE' is deprecated [-Wdeprecated-declarations]
+    |   864 | static CYTHON_INLINE size_t __Pyx_Py_UNICODE_strlen(const Py_UNICODE *u) {
+    |       |                                                           ^
+    | /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/cpython/unicodeobject.h:10:1: note: 'Py_UNICODE' has been explicitly marked deprecated here
+    |    10 | Py_DEPRECATED(3.13) typedef wchar_t Py_UNICODE;
+    |       | ^
+    | /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/pyport.h:251:54: note: expanded from macro 'Py_DEPRECATED'
+    |   251 | #define Py_DEPRECATED(VERSION_UNUSED) __attribute__((__deprecated__))
+    |       |                                                      ^
+    | asyncpg/pgproto/pgproto.c:865:11: warning: 'Py_UNICODE' is deprecated [-Wdeprecated-declarations]
+    |   865 |     const Py_UNICODE *u_end = u;
+    |       |           ^
+    | /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/cpython/unicodeobject.h:10:1: note: 'Py_UNICODE' has been explicitly marked deprecated here
+    |    10 | Py_DEPRECATED(3.13) typedef wchar_t Py_UNICODE;
+    |       | ^
+    | /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/pyport.h:251:54: note: expanded from macro 'Py_DEPRECATED'
+    |   251 | #define Py_DEPRECATED(VERSION_UNUSED) __attribute__((__deprecated__))
+    |       |                                                      ^
+    | asyncpg/pgproto/pgproto.c:1667:39: error: call to undeclared function '_PyInterpreterState_GetConfig'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    |  1667 |     __pyx_assertions_enabled_flag = ! _PyInterpreterState_GetConfig(__Pyx_PyThreadState_Current->interp)->optimization_level;
+    |       |                                       ^
+    | asyncpg/pgproto/pgproto.c:1667:107: error: member reference type 'int' is not a pointer
+    |  1667 |     __pyx_assertions_enabled_flag = ! _PyInterpreterState_GetConfig(__Pyx_PyThreadState_Current->interp)->optimization_level;
+    |       |                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  ^
+    | asyncpg/pgproto/pgproto.c:38932:13: error: call to undeclared function '_PyUnicode_FastCopyCharacters'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    |  38932 |             _PyUnicode_FastCopyCharacters(result_uval, char_pos, uval, 0, ulength);
+    |        |             ^
+    | asyncpg/pgproto/pgproto.c:38932:13: note: did you mean 'PyUnicode_CopyCharacters'?
+    | /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/cpython/unicodeobject.h:416:24: note: 'PyUnicode_CopyCharacters' declared here
+    |   416 | PyAPI_FUNC(Py_ssize_t) PyUnicode_CopyCharacters(
+    |       |                        ^
+    | In file included from asyncpg/pgproto/pgproto.c:41520:
+    | In file included from /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/internal/pycore_frame.h:13:
+    | In file included from /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/internal/pycore_code.h:12:
+    | /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/internal/pycore_backoff.h:78:66: warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+    |    78 |         return make_backoff_counter((1 << (counter.backoff + 1)) - 1, counter.backoff + 1);
+    |       |                ~~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+    | asyncpg/pgproto/pgproto.c:41811:70: error: too few arguments to function call, expected 6, have 5
+    |  41809 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+    |        |                           ~~~~~~~~~~~~~~~~~~~
+    |  41810 |                                               bytes, sizeof(val),
+    |  41811 |                                               is_little, !is_unsigned);
+    |        |                                                                      ^
+    | /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/cpython/longobject.h:111:17: note: '_PyLong_AsByteArray' declared here
+    |   111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+    |       |                 ^                   ~~~~~~~~~~~~~~~~
+    |   112 |     unsigned char* bytes, size_t n,
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |   113 |     int little_endian, int is_signed, int with_exceptions);
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    | asyncpg/pgproto/pgproto.c:42045:70: error: too few arguments to function call, expected 6, have 5
+    |  42043 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+    |        |                           ~~~~~~~~~~~~~~~~~~~
+    |  42044 |                                               bytes, sizeof(val),
+    |  42045 |                                               is_little, !is_unsigned);
+    |        |                                                                      ^
+    | /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/cpython/longobject.h:111:17: note: '_PyLong_AsByteArray' declared here
+    |   111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+    |       |                 ^                   ~~~~~~~~~~~~~~~~
+    |   112 |     unsigned char* bytes, size_t n,
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |   113 |     int little_endian, int is_signed, int with_exceptions);
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    | asyncpg/pgproto/pgproto.c:42241:70: error: too few arguments to function call, expected 6, have 5
+    |  42239 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+    |        |                           ~~~~~~~~~~~~~~~~~~~
+    |  42240 |                                               bytes, sizeof(val),
+    |  42241 |                                               is_little, !is_unsigned);
+    |        |                                                                      ^
+    | /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/cpython/longobject.h:111:17: note: '_PyLong_AsByteArray' declared here
+    |   111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+    |       |                 ^                   ~~~~~~~~~~~~~~~~
+    |   112 |     unsigned char* bytes, size_t n,
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |   113 |     int little_endian, int is_signed, int with_exceptions);
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    | asyncpg/pgproto/pgproto.c:42437:70: error: too few arguments to function call, expected 6, have 5
+    |  42435 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+    |        |                           ~~~~~~~~~~~~~~~~~~~
+    |  42436 |                                               bytes, sizeof(val),
+    |  42437 |                                               is_little, !is_unsigned);
+    |        |                                                                      ^
+    | /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/cpython/longobject.h:111:17: note: '_PyLong_AsByteArray' declared here
+    |   111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+    |       |                 ^                   ~~~~~~~~~~~~~~~~
+    |   112 |     unsigned char* bytes, size_t n,
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |   113 |     int little_endian, int is_signed, int with_exceptions);
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    | asyncpg/pgproto/pgproto.c:42747:70: error: too few arguments to function call, expected 6, have 5
+    |  42745 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+    |        |                           ~~~~~~~~~~~~~~~~~~~
+    |  42746 |                                               bytes, sizeof(val),
+    |  42747 |                                               is_little, !is_unsigned);
+    |        |                                                                      ^
+    | /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/cpython/longobject.h:111:17: note: '_PyLong_AsByteArray' declared here
+    |   111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+    |       |                 ^                   ~~~~~~~~~~~~~~~~
+    |   112 |     unsigned char* bytes, size_t n,
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |   113 |     int little_endian, int is_signed, int with_exceptions);
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    | asyncpg/pgproto/pgproto.c:43057:70: error: too few arguments to function call, expected 6, have 5
+    |  43055 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+    |        |                           ~~~~~~~~~~~~~~~~~~~
+    |  43056 |                                               bytes, sizeof(val),
+    |  43057 |                                               is_little, !is_unsigned);
+    |        |                                                                      ^
+    | /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/cpython/longobject.h:111:17: note: '_PyLong_AsByteArray' declared here
+    |   111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+    |       |                 ^                   ~~~~~~~~~~~~~~~~
+    |   112 |     unsigned char* bytes, size_t n,
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |   113 |     int little_endian, int is_signed, int with_exceptions);
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    | asyncpg/pgproto/pgproto.c:43291:70: error: too few arguments to function call, expected 6, have 5
+    |  43289 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+    |        |                           ~~~~~~~~~~~~~~~~~~~
+    |  43290 |                                               bytes, sizeof(val),
+    |  43291 |                                               is_little, !is_unsigned);
+    |        |                                                                      ^
+    | /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/cpython/longobject.h:111:17: note: '_PyLong_AsByteArray' declared here
+    |   111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+    |       |                 ^                   ~~~~~~~~~~~~~~~~
+    |   112 |     unsigned char* bytes, size_t n,
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |   113 |     int little_endian, int is_signed, int with_exceptions);
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    | asyncpg/pgproto/pgproto.c:43487:70: error: too few arguments to function call, expected 6, have 5
+    |  43485 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+    |        |                           ~~~~~~~~~~~~~~~~~~~
+    |  43486 |                                               bytes, sizeof(val),
+    |  43487 |                                               is_little, !is_unsigned);
+    |        |                                                                      ^
+    | /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/cpython/longobject.h:111:17: note: '_PyLong_AsByteArray' declared here
+    |   111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+    |       |                 ^                   ~~~~~~~~~~~~~~~~
+    |   112 |     unsigned char* bytes, size_t n,
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |   113 |     int little_endian, int is_signed, int with_exceptions);
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    | asyncpg/pgproto/pgproto.c:43721:70: error: too few arguments to function call, expected 6, have 5
+    |  43719 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+    |        |                           ~~~~~~~~~~~~~~~~~~~
+    |  43720 |                                               bytes, sizeof(val),
+    |  43721 |                                               is_little, !is_unsigned);
+    |        |                                                                      ^
+    | /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/cpython/longobject.h:111:17: note: '_PyLong_AsByteArray' declared here
+    |   111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+    |       |                 ^                   ~~~~~~~~~~~~~~~~
+    |   112 |     unsigned char* bytes, size_t n,
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |   113 |     int little_endian, int is_signed, int with_exceptions);
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    | asyncpg/pgproto/pgproto.c:43917:70: error: too few arguments to function call, expected 6, have 5
+    |  43915 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+    |        |                           ~~~~~~~~~~~~~~~~~~~
+    |  43916 |                                               bytes, sizeof(val),
+    |  43917 |                                               is_little, !is_unsigned);
+    |        |                                                                      ^
+    | /Library/Frameworks/Python.framework/Versions/3.13/include/python3.13/cpython/longobject.h:111:17: note: '_PyLong_AsByteArray' declared here
+    |   111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+    |       |                 ^                   ~~~~~~~~~~~~~~~~
+    |   112 |     unsigned char* bytes, size_t n,
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    |   113 |     int little_endian, int is_signed, int with_exceptions);
+    |       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    | 3 warnings and 13 errors generated.
+    | error: command '/usr/bin/clang' failed with exit code 1
+
+Note: This error originates from the build backend, and is likely not a problem with poetry but one of the following issues with asyncpg (0.29.0)
+
+  - not supporting PEP 517 builds
+  - not specifying PEP 517 build requirements correctly
+  - the build requirements are incompatible with your operating system or Python version
+  - the build requirements are missing system dependencies (eg: compilers, libraries, headers).
+
+You can verify this by running pip wheel --no-cache-dir --use-pep517 "asyncpg (==0.29.0)".
+

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinguistFlow Widget – WordPress Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <style>
+    /* ── Simulate a realistic WordPress Twenty-Twenty-Four theme ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --wp-gray:  #1e1e1e;
+      --wp-light: #f9f9f9;
+    }
+
+    body {
+      background: var(--wp-light);
+      font-family: 'Inter', sans-serif;
+      color: var(--wp-gray);
+      min-height: 100vh;
+    }
+
+    /* WP-like site header */
+    .wp-site-header {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .wp-logo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #1e1e1e;
+      letter-spacing: -0.02em;
+    }
+
+    .wp-nav {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .wp-nav a {
+      font-size: 0.85rem;
+      color: #555;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .wp-nav a:hover { color: #1e1e1e; }
+
+    /* WP page content */
+    .wp-page-hero {
+      background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+      color: #fff;
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+    }
+
+    .wp-page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+
+    .wp-page-hero p {
+      font-size: 1.1rem;
+      opacity: 0.65;
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* WP main section */
+    .wp-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* WP sidebar layout */
+    .wp-content-sidebar {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 900px) {
+      .wp-content-sidebar { grid-template-columns: 1fr; }
+    }
+
+    /* WP article area */
+    .wp-article {
+      background: #fff;
+      border-radius: 4px;
+      padding: 2rem;
+      border: 1px solid #e5e5e5;
+    }
+
+    .wp-article-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #aaa;
+      margin-bottom: 1rem;
+    }
+
+    .wp-article-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .wp-article-body {
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: #555;
+    }
+
+    .wp-article-body p + p { margin-top: 1em; }
+
+    /* WP Sidebar */
+    .wp-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .wp-widget-box {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 4px;
+      padding: 1.25rem;
+    }
+
+    .wp-widget-box h3 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #aaa;
+      margin-bottom: 0.75rem;
+    }
+
+    .wp-recent-post {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .wp-recent-post:last-child { border-bottom: none; }
+    .wp-recent-post a { color: #1e1e1e; font-size: 0.82rem; font-weight: 600; text-decoration: none; }
+    .wp-recent-post a:hover { text-decoration: underline; }
+    .wp-recent-post span { font-size: 0.72rem; color: #aaa; }
+
+    /* ────────────────────────────────────────────────────────
+       WIDGET SECTION — This is where your LinguistFlow Blog goes
+       ──────────────────────────────────────────────────────── */
+    .lf-widget-section {
+      margin-top: 2rem;
+      padding: 2.5rem;
+      background: #f0f0f5;
+      border-radius: 4px;
+      border: 1px solid #e0e0e8;
+    }
+
+    .lf-section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #aaa;
+      margin-bottom: 1.5rem;
+    }
+
+    /* WP footer */
+    .wp-footer {
+      background: #1e1e1e;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+    }
+
+    /* Dark mode toggle */
+    .mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mode-toggle button {
+      background: none;
+      border: 1px solid #ddd;
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .mode-toggle button:hover, .mode-toggle button.active {
+      background: #1e1e1e;
+      color: #fff;
+      border-color: #1e1e1e;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Simulated WordPress Header -->
+  <header class="wp-site-header">
+    <div class="wp-logo">MeineFirma GmbH</div>
+    <nav>
+      <ul class="wp-nav">
+        <li><a href="#">Start</a></li>
+        <li><a href="#">Leistungen</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Kontakt</a></li>
+      </ul>
+    </nav>
+    <div class="mode-toggle">
+      <button id="btn-light" class="active" onclick="setTheme('light')">☀️ Light</button>
+      <button id="btn-dark" onclick="setTheme('dark')">🌙 Dark</button>
+    </div>
+  </header>
+
+  <!-- WP "Page" Hero -->
+  <section class="wp-page-hero">
+    <h1>Unser Unternehmensblog</h1>
+    <p>Aktuelle Insights, Branchentrends und Expertenwissen — automatisch generiert von LinguistFlow KI.</p>
+  </section>
+
+  <main class="wp-main">
+    <!-- WordPress-like content + sidebar -->
+    <div class="wp-content-sidebar">
+      <article class="wp-article">
+        <p class="wp-article-label">Über uns</p>
+        <h2 class="wp-article-title">Willkommen auf unserem Blog</h2>
+        <div class="wp-article-body">
+          <p>Hier finden Sie aktuelle Artikel zu unseren Themen. Unsere KI-gestützte Content-Plattform LinguistFlow sorgt dafür, dass Sie immer mit frischen, SEO-optimierten Inhalten versorgt werden.</p>
+          <p>Die folgenden Artikel wurden vollautomatisch von unserer KI-Engine generiert, geprüft und freigegeben. Kein Plagiat, keine Klischees — nur hochwertiger, zielgruppenspezifischer Content.</p>
+        </div>
+      </article>
+
+      <aside class="wp-sidebar">
+        <div class="wp-widget-box">
+          <h3>Kategorien</h3>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <a href="#" style="font-size:0.82rem;color:#555;text-decoration:none">KI &amp; Strategie (4)</a>
+            <a href="#" style="font-size:0.82rem;color:#555;text-decoration:none">SEO (7)</a>
+            <a href="#" style="font-size:0.82rem;color:#555;text-decoration:none">Automatisierung (3)</a>
+            <a href="#" style="font-size:0.82rem;color:#555;text-decoration:none">Marketing (5)</a>
+          </div>
+        </div>
+        <div class="wp-widget-box">
+          <h3>Kürzlich</h3>
+          <div class="wp-recent-post"><a href="#">KI im Content Marketing</a><span>25. Feb 2026</span></div>
+          <div class="wp-recent-post"><a href="#">SEO-Trends 2025</a><span>20. Feb 2026</span></div>
+          <div class="wp-recent-post"><a href="#">Content-Automatisierung</a><span>16. Feb 2026</span></div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════
+         LINGUISTFLOW BLOG WIDGET
+         In WordPress: Als "HTML-Block" oder Custom HTML Widget einfügen.
+         Copy the two tags below into your WordPress HTML block.
+         ════════════════════════════════════════════════════ -->
+    <div class="lf-widget-section">
+      <p class="lf-section-label">📡 LinguistFlow Blog Widget (WordPress HTML Block)</p>
+
+      <!-- ↓↓↓ Das ist alles was in WordPress rein muss ↓↓↓ -->
+      <linguistflow-root
+        data-widget-id="XYZ123-DEMO"
+        data-theme="light"
+        data-lang="de"
+      ></linguistflow-root>
+      <script type="module" src="/src/main.ts"></script>
+      <!-- ↑↑↑ Ende WordPress Code Snippet ↑↑↑ -->
+    </div>
+
+  </main>
+
+  <!-- WP Footer -->
+  <footer class="wp-footer">
+    <p>© 2026 MeineFirma GmbH · Impressum · Datenschutz</p>
+  </footer>
+
+  <!-- Theme toggle script -->
+  <script>
+    function setTheme(theme) {
+      const widget = document.querySelector('linguistflow-root');
+      if (widget) widget.setAttribute('data-theme', theme);
+      document.getElementById('btn-light').classList.toggle('active', theme === 'light');
+      document.getElementById('btn-dark').classList.toggle('active', theme === 'dark');
+    }
+  </script>
+
+</body>
+
+</html>

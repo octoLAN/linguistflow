@@ -1,0 +1,593 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ══════════════════════════════════════════════════════════════════
+   LinguistFlow Design System — 3-Color Minimal
+   Colors: #141414 (bg) · #2563eb (accent) · #ffffff (text)
+   Sidebar stays: #0d1526 (navy, special exception)
+   ══════════════════════════════════════════════════════════════════ */
+
+@layer base {
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        -webkit-text-size-adjust: 100%;
+        text-rendering: optimizeLegibility;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #f7f7f8;
+        color: #0a0a0a;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .dark body,
+    .dark {
+        background-color: #141414;
+        color: #f0f0f0;
+    }
+
+    :focus-visible {
+        outline: 2px solid #2563eb;
+        outline-offset: 2px;
+        border-radius: 8px;
+    }
+
+    /* Invisible scrollbar */
+    ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: rgba(128, 128, 128, 0.2);
+        border-radius: 999px;
+    }
+
+    button {
+        cursor: pointer;
+        background: none;
+        border: none;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+
+@layer components {
+
+    /* ── Panels / Cards ──────────────────────────────────────────── */
+    /* Light: white.  Dark: #1c1c1c */
+    .lf-panel {
+        background-color: #ffffff;
+        border-radius: 1.25rem;
+    }
+
+    .dark .lf-panel {
+        background-color: #1c1c1c;
+    }
+
+    .lf-panel-sm {
+        background-color: #ffffff;
+        border-radius: 0.875rem;
+    }
+
+    .dark .lf-panel-sm {
+        background-color: #1c1c1c;
+    }
+
+    /* ── Metric tile ─────────────────────────────────────────────── */
+    .lf-metric {
+        background-color: #ffffff;
+        border-radius: 1.25rem;
+        padding: 1.25rem;
+    }
+
+    .dark .lf-metric {
+        background-color: #1c1c1c;
+    }
+
+    .lf-metric-label {
+        font-size: 0.6875rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #888888;
+    }
+
+    .lf-metric-value {
+        font-size: 2.25rem;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        margin-top: 0.375rem;
+        color: #0a0a0a;
+    }
+
+    .dark .lf-metric-value {
+        color: #f0f0f0;
+    }
+
+    .lf-metric-sub {
+        font-size: 0.75rem;
+        color: #888888;
+        margin-top: 0.25rem;
+    }
+
+    /* ── Buttons ─────────────────────────────────────────────────── */
+    .lf-btn-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        background-color: #2563eb;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 0.875rem;
+        padding: 0.5625rem 1.25rem;
+        border-radius: 999px;
+        letter-spacing: -0.01em;
+        transition: background-color 0.15s ease, transform 0.15s ease;
+        border: none;
+    }
+
+    .lf-btn-primary:hover {
+        background-color: #1d4ed8;
+        transform: translateY(-1px);
+    }
+
+    .lf-btn-primary:active {
+        transform: translateY(0);
+    }
+
+    .lf-btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        font-weight: 500;
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+        border-radius: 999px;
+        color: #888888;
+        transition: all 0.15s ease;
+    }
+
+    .lf-btn-ghost:hover {
+        background: rgba(0, 0, 0, 0.05);
+        color: #0a0a0a;
+    }
+
+    .dark .lf-btn-ghost:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: #f0f0f0;
+    }
+
+    .lf-btn-outline {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        font-weight: 500;
+        font-size: 0.875rem;
+        padding: 0.5rem 1.125rem;
+        border-radius: 999px;
+        color: #0a0a0a;
+        transition: all 0.15s ease;
+    }
+
+    .dark .lf-btn-outline {
+        color: #f0f0f0;
+    }
+
+    .lf-btn-outline:hover {
+        color: #2563eb;
+    }
+
+    .lf-btn-danger {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        font-weight: 500;
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+        border-radius: 999px;
+        color: #888888;
+        transition: color 0.15s ease;
+    }
+
+    .lf-btn-danger:hover {
+        color: #ef4444;
+    }
+
+    /* ── Sidebar: bg controlled inline via App.tsx per mode ─────── */
+
+    /* ── Nav items ───────────────────────────────────────────────── */
+    .lf-nav-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.5625rem 0.75rem;
+        width: 100%;
+        font-size: 0.875rem;
+        font-weight: 500;
+        border-radius: 0.75rem;
+        color: rgba(0, 0, 0, 0.4);
+        transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .dark .lf-nav-item {
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    .lf-nav-item:hover {
+        background: rgba(0, 0, 0, 0.05);
+        color: rgba(0, 0, 0, 0.8);
+    }
+
+    .dark .lf-nav-item:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    .lf-nav-item.active {
+        background: rgba(37, 99, 235, 0.1);
+        color: #2563eb;
+        font-weight: 600;
+    }
+
+    .dark .lf-nav-item.active {
+        background: rgba(37, 99, 235, 0.12);
+        color: #60a5fa;
+    }
+
+    /* ── Tab bar ─────────────────────────────────────────────────── */
+    .lf-tab-bar {
+        display: inline-flex;
+        gap: 2px;
+        background: rgba(0, 0, 0, 0.05);
+        padding: 3px;
+        border-radius: 999px;
+    }
+
+    .dark .lf-tab-bar {
+        background: rgba(255, 255, 255, 0.06);
+    }
+
+    .lf-tab {
+        padding: 0.4375rem 1rem;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        border-radius: 999px;
+        color: #888888;
+        transition: all 0.15s ease;
+    }
+
+    .lf-tab.active,
+    .lf-tab[data-active="true"] {
+        background-color: #2563eb;
+        color: #ffffff;
+        font-weight: 600;
+    }
+
+    .dark .lf-tab.active {
+        background-color: #2563eb;
+    }
+
+    /* ── Inputs ──────────────────────────────────────────────────── */
+    .lf-input {
+        width: 100%;
+        background-color: #f0f0f2;
+        color: #0a0a0a;
+        font-size: 0.875rem;
+        font-weight: 500;
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
+        outline: none;
+        transition: all 0.15s ease;
+    }
+
+    .lf-input::placeholder {
+        color: rgba(0, 0, 0, 0.3);
+    }
+
+    .lf-input:focus {
+        background-color: #ffffff;
+    }
+
+    .dark .lf-input {
+        background-color: #222222;
+        color: #f0f0f0;
+    }
+
+    .dark .lf-input::placeholder {
+        color: rgba(255, 255, 255, 0.25);
+    }
+
+    .dark .lf-input:focus {
+        background-color: #1c1c1c;
+    }
+
+    /* ── Section headings ────────────────────────────────────────── */
+    .lf-section-title {
+        font-size: 1.375rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.2;
+        color: #0a0a0a;
+    }
+
+    .dark .lf-section-title {
+        color: #f0f0f0;
+    }
+
+    .lf-section-sub {
+        font-size: 0.875rem;
+        color: #888888;
+        margin-top: 0.125rem;
+    }
+
+    /* ── Badges ──────────────────────────────────────────────────── */
+    .lf-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        padding: 0.1875rem 0.625rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border-radius: 999px;
+    }
+
+    .lf-badge-blue {
+        background: rgba(37, 99, 235, 0.1);
+        color: #2563eb;
+    }
+
+    .lf-badge-green {
+        background: rgba(34, 197, 94, 0.1);
+        color: #16a34a;
+    }
+
+    .lf-badge-yellow {
+        background: rgba(245, 158, 11, 0.1);
+        color: #d97706;
+    }
+
+    .lf-badge-red {
+        background: rgba(239, 68, 68, 0.1);
+        color: #dc2626;
+    }
+
+    .lf-badge-muted {
+        background: rgba(128, 128, 128, 0.1);
+        color: #888888;
+    }
+
+    .dark .lf-badge-blue {
+        background: rgba(37, 99, 235, 0.18);
+        color: #60a5fa;
+    }
+
+    .dark .lf-badge-green {
+        background: rgba(34, 197, 94, 0.12);
+        color: #4ade80;
+    }
+
+    .dark .lf-badge-yellow {
+        background: rgba(245, 158, 11, 0.12);
+        color: #fbbf24;
+    }
+
+    .dark .lf-badge-red {
+        background: rgba(239, 68, 68, 0.12);
+        color: #f87171;
+    }
+
+    /* ── Divider ─────────────────────────────────────────────────── */
+    .lf-divider {
+        height: 1px;
+        background: rgba(0, 0, 0, 0.06);
+    }
+
+    .dark .lf-divider {
+        background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* ── Shimmer ─────────────────────────────────────────────────── */
+    .lf-shimmer {
+        position: relative;
+        overflow: hidden;
+        background: #f0f0f2;
+    }
+
+    .dark .lf-shimmer {
+        background: #222222;
+    }
+
+    .lf-shimmer::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.06) 50%, transparent 100%);
+        animation: shimmer 1.6s ease-in-out infinite;
+    }
+
+    /* ── Modal ───────────────────────────────────────────────────── */
+    .lf-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .lf-modal {
+        background: #ffffff;
+        border-radius: 1.5rem;
+    }
+
+    .dark .lf-modal {
+        background: #1c1c1c;
+    }
+
+    /* ── Empty state ─────────────────────────────────────────────── */
+    .lf-empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        padding: 3rem 1.5rem;
+        text-align: center;
+        color: #888888;
+    }
+
+    .lf-empty-icon {
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 1rem;
+        background: rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #888888;
+    }
+
+    .dark .lf-empty-icon {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* ── Progress bar ────────────────────────────────────────────── */
+    .lf-progress-track {
+        height: 4px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.07);
+        overflow: hidden;
+    }
+
+    .dark .lf-progress-track {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .lf-progress-fill {
+        height: 100%;
+        border-radius: 999px;
+        background-color: #2563eb;
+        transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── Agent banner (blue — only branded element) ──────────────── */
+    .lf-hero-banner {
+        background-color: #2563eb;
+        border-radius: 1.25rem;
+        color: white;
+    }
+}
+
+/* ── Utilities ────────────────────────────────────────────────────── */
+@layer utilities {
+    .animate-fade-up {
+        animation: fade-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .animate-fade-in {
+        animation: fade-in 0.2s ease both;
+    }
+
+    .stagger>*:nth-child(1) {
+        animation-delay: 0ms;
+    }
+
+    .stagger>*:nth-child(2) {
+        animation-delay: 40ms;
+    }
+
+    .stagger>*:nth-child(3) {
+        animation-delay: 80ms;
+    }
+
+    .stagger>*:nth-child(4) {
+        animation-delay: 120ms;
+    }
+
+    .stagger>*:nth-child(5) {
+        animation-delay: 160ms;
+    }
+
+    .hover-lift {
+        transition: transform 0.15s ease;
+    }
+
+    .hover-lift:hover {
+        transform: translateY(-2px);
+    }
+
+    .tabular {
+        font-variant-numeric: tabular-nums;
+    }
+
+    .text-gradient {
+        background: linear-gradient(135deg, #2563eb, #60a5fa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+}
+
+/* ── Keyframes ─────────────────────────────────────────────────────── */
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(200%);
+    }
+}
+
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

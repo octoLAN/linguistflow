@@ -1,0 +1,12 @@
+{
+    "css.lint.unknownAtRules": "ignore",
+    "files.exclude": {
+        "**/.gemini": true
+    },
+    "search.exclude": {
+        "**/.gemini": true
+    },
+    "intelephense.files.exclude": [
+        "**/.gemini/**"
+    ]
+}

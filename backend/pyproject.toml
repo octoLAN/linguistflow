@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "linguistflow-backend"
+version = "0.1.0"
+description = "LinguistFlow – GDPR-compliant AI blog SaaS backend"
+authors = ["LinguistFlow Team"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.111.0"
+uvicorn = {extras = ["standard"], version = "^0.29.0"}
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.0"}
+asyncpg = "^0.30.0"
+alembic = "^1.13.0"
+pydantic = {extras = ["email"], version = "^2.7.0"}
+pydantic-settings = "^2.3.0"
+celery = {extras = ["redis"], version = "^5.4.0"}
+redis = "^5.0.4"
+httpx = "^0.27.0"
+feedparser = "^6.0.11"
+openai = "^1.30.0"
+anthropic = "^0.28.0"
+python-multipart = "^0.0.9"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-dotenv = "^1.0.1"
+Pillow = "^10.3.0"
+langchain = "^0.3.0"
+langchain-openai = "^0.2.0"
+numpy = ">=2.0.0"
+sentence-transformers = "^5.2.3"
+scikit-learn = "^1.8.0"
+greenlet = "^3.3.2"
+aiosqlite = "^0.22.1"
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.0"
+pytest-asyncio = "^0.23.0"
+httpx = "^0.27.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

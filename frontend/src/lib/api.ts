@@ -1,7 +1,31 @@
+/// <reference types="vite/client" />
 const isProduction = import.meta.env.PROD;
 const API_BASE = isProduction
     ? `http://${window.location.hostname}:8000/api`
     : 'http://localhost:8000/api';
+
+// ── Internal Auth Wrapper ──────────────────────────────────────────────────────
+export const fetchWithAuth = async (endpoint: string, options: RequestInit = {}) => {
+    const token = localStorage.getItem('lf_token');
+    const headers = {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...options.headers,
+    };
+
+    const response = await fetch(`${API_BASE}${endpoint}`, {
+        ...options,
+        headers,
+    });
+
+    if (response.status === 401) {
+        // Token expired or invalid
+        localStorage.removeItem('lf_token');
+        window.location.href = '/login';
+    }
+
+    return response;
+};
 
 // ── A. Layout-Ebene ────────────────────────────────────────────────────────────
 export interface LayoutOptions {
@@ -103,11 +127,51 @@ export interface Draft {
 }
 
 export const LinguistFlowAPI = {
+    // ── Auth & Customer ────────────────────────────────────────────────────────────
+    async login(email: string, password: string): Promise<{ access_token: string, customer_id?: string }> {
+        const formData = new URLSearchParams()
+        formData.append('username', email) // OAuth2 uses 'username'
+        formData.append('password', password)
+
+        const response = await fetch(`${API_BASE}/auth/token`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: formData.toString()
+        })
+        if (!response.ok) {
+            const error = await response.json()
+            throw new Error(error.detail || 'Login fehlgeschlagen')
+        }
+        return response.json()
+    },
+
+    async register(data: { email: string, password: string, full_name?: string, company?: string, gdpr_consent: boolean }): Promise<{ access_token: string, customer_id: string }> {
+        const response = await fetch(`${API_BASE}/auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        if (!response.ok) {
+            const error = await response.json()
+            throw new Error(error.detail || 'Registrierung fehlgeschlagen')
+        }
+        return response.json()
+    },
+
+    async getMe(): Promise<any> {
+        const response = await fetchWithAuth('/auth/me');
+        if (!response.ok) throw new Error('Failed to fetch profile')
+        return response.json()
+    },
+
+    // ── Drafts ────────────────────────────────────────────────────────────
     async getDrafts(): Promise<Draft[]> {
         // Retry up to 3x with 2s delay — backend might be briefly busy (SSE + agent)
         for (let attempt = 0; attempt < 3; attempt++) {
             try {
-                const response = await fetch(`${API_BASE}/drafts`)
+                const response = await fetchWithAuth(`/drafts`)
                 if (!response.ok) throw new Error('Failed to fetch drafts')
                 const data = await response.json()
                 if (Array.isArray(data)) return data
@@ -133,9 +197,8 @@ export const LinguistFlowAPI = {
         // This is the single source of truth: Freigabe-Center preview AND
         // WordPress publish both read from _draft_store, so the Editor changes
         // are immediately visible in the preview AND used when publishing.
-        const response = await fetch(`${API_BASE}/drafts/${draftId}`, {
+        const response = await fetchWithAuth(`/drafts/${draftId}`, {
             method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ ghost_data: ghostData, visual_opts: visualOpts }),
         })
         if (!response.ok) {
@@ -146,17 +209,14 @@ export const LinguistFlowAPI = {
     },
 
     async deleteDraft(draftId: string): Promise<{ status: string }> {
-        const response = await fetch(`${API_BASE}/drafts/${draftId}`, { method: 'DELETE' })
+        const response = await fetchWithAuth(`/drafts/${draftId}`, { method: 'DELETE' })
         if (!response.ok) return { status: 'error' }
         return response.json()
     },
 
     async verifySite(url: string, username: string, appPassword: string): Promise<boolean> {
-        const response = await fetch(`${API_BASE}/verify_site`, {
+        const response = await fetchWithAuth(`/verify_site`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             body: JSON.stringify({
                 site_url: url,
                 username: username,
@@ -172,9 +232,8 @@ export const LinguistFlowAPI = {
     },
 
     async approveDraft(draftId: string, clientCredentials: { url: string, username: string, appPassword: string }, contentOverrides?: { title?: string, excerpt?: string, content?: string, template?: string }): Promise<{ status: string, post_id: number }> {
-        const response = await fetch(`${API_BASE}/approve_draft`, {
+        const response = await fetchWithAuth(`/approve_draft`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 draft_id: draftId,
                 site_url: clientCredentials.url,

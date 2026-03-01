@@ -8,6 +8,10 @@ import Dashboard from './pages/Dashboard'
 import Editor from './pages/Editor'
 import Schedule from './pages/Schedule'
 import Onboarding from './pages/Onboarding'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import { AuthProvider, useAuth } from './contexts/AuthContext'
+import { ProtectedRoute } from './components/layout/ProtectedRoute'
 
 const NAV = [
     { to: '/', label: 'Freigabe Center', Icon: LayoutDashboard },
@@ -214,106 +218,156 @@ export default function App() {
     const agentBusy = agentStatus?.is_busy
 
     return (
+        <AuthProvider>
+            <AppLayout
+                isDark={isDark}
+                setIsDark={setIsDark}
+                agentBusy={agentBusy}
+                connectedSites={connectedSites}
+                siteSchedules={siteSchedules}
+                setSiteSchedules={setSiteSchedules}
+                setConnectedSites={setConnectedSites}
+            />
+            <AgentBanner status={agentStatus} />
+        </AuthProvider>
+    )
+}
+
+// ── Inside Auth Context Layout ───────────────────────────────────────────
+function AppLayout({
+    isDark, setIsDark, agentBusy, connectedSites, siteSchedules, setSiteSchedules, setConnectedSites
+}: any) {
+    const { user, logout } = useAuth();
+
+    return (
         <div className={`flex min-h-screen ${isDark ? 'dark' : ''}`}
             style={{ background: isDark ? '#141414' : '#f7f7f8' }}>
 
             {/* ── Sidebar ─────────────────────────────────────────────── */}
-            <aside className="w-60 flex-shrink-0 flex flex-col py-6 px-3"
-                style={{ background: isDark ? '#0d0d0d' : '#ececee' }}>
+            {user && (
+                <aside className="w-60 flex-shrink-0 flex flex-col py-6 px-3"
+                    style={{ background: isDark ? '#0d0d0d' : '#ececee' }}>
 
-                {/* Logo */}
-                <div className="flex items-center gap-2.5 px-2 mb-7">
-                    <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
-                        style={{ background: '#2563eb' }}>
-                        <Zap style={{ width: 16, height: 16, color: 'white', fill: 'white' }} />
-                    </div>
-                    <div>
-                        <p className="font-bold text-sm" style={{ letterSpacing: '-0.02em', color: isDark ? '#f0f0f0' : '#0a0a0a' }}>
-                            LinguistFlow
-                        </p>
-                        <p className="text-[10px]" style={{ color: isDark ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.35)' }}>
-                            KI-Content-Autopilot
-                        </p>
-                    </div>
-                </div>
-
-                {/* Live agent pill */}
-                {agentBusy && (
-                    <div className="mx-1 mb-3 px-3 py-2 rounded-xl flex items-center gap-2"
-                        style={{ background: 'rgba(37,99,235,0.15)' }}>
-                        <div className="relative">
-                            <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                            <span className="absolute inset-0 rounded-full bg-blue-500 animate-ping opacity-60" />
+                    {/* Logo */}
+                    <div className="flex items-center gap-2.5 px-2 mb-7">
+                        <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
+                            style={{ background: '#2563eb' }}>
+                            <Zap style={{ width: 16, height: 16, color: 'white', fill: 'white' }} />
                         </div>
-                        <p className="text-[11px] font-semibold" style={{ color: '#2563eb' }}>KI generiert…</p>
+                        <div>
+                            <p className="font-bold text-sm" style={{ letterSpacing: '-0.02em', color: isDark ? '#f0f0f0' : '#0a0a0a' }}>
+                                LinguistFlow
+                            </p>
+                            <p className="text-[10px]" style={{ color: isDark ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.35)' }}>
+                                KI-Content-Autopilot
+                            </p>
+                        </div>
                     </div>
-                )}
 
-                {/* Nav section label */}
-                <p className="text-[9px] font-bold uppercase tracking-widest px-2 mb-1"
-                    style={{ color: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.25)' }}>
-                    Navigation
-                </p>
+                    {/* Live agent pill */}
+                    {agentBusy && (
+                        <div className="mx-1 mb-3 px-3 py-2 rounded-xl flex items-center gap-2"
+                            style={{ background: 'rgba(37,99,235,0.15)' }}>
+                            <div className="relative">
+                                <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                                <span className="absolute inset-0 rounded-full bg-blue-500 animate-ping opacity-60" />
+                            </div>
+                            <p className="text-[11px] font-semibold" style={{ color: '#2563eb' }}>KI generiert…</p>
+                        </div>
+                    )}
 
-                {/* Nav items */}
-                <nav className="flex flex-col gap-0.5 flex-1">
-                    {NAV.map(({ to, label, Icon }) => (
-                        <NavLink
-                            key={to} to={to} end={to === '/'}
-                            className={({ isActive }) => `lf-nav-item ${isActive ? 'active' : ''}`}
-                            style={({ isActive }) => ({
-                                color: isActive ? '#2563eb' : (isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.45)'),
-                                background: isActive ? 'rgba(37,99,235,0.1)' : 'transparent',
-                                fontWeight: isActive ? 600 : 500,
-                            })}
+                    {/* Nav section label */}
+                    <p className="text-[9px] font-bold uppercase tracking-widest px-2 mb-1"
+                        style={{ color: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.25)' }}>
+                        Navigation
+                    </p>
+
+                    {/* Nav items */}
+                    <nav className="flex flex-col gap-0.5 flex-1">
+                        {NAV.map(({ to, label, Icon }) => (
+                            <NavLink
+                                key={to} to={to} end={to === '/'}
+                                className={({ isActive }) => `lf-nav-item ${isActive ? 'active' : ''}`}
+                                style={({ isActive }) => ({
+                                    color: isActive ? '#2563eb' : (isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.45)'),
+                                    background: isActive ? 'rgba(37,99,235,0.1)' : 'transparent',
+                                    fontWeight: isActive ? 600 : 500,
+                                })}
+                            >
+                                <Icon style={{ width: 15, height: 15, flexShrink: 0 }} />
+                                <span className="flex-1 text-sm">{label}</span>
+                                <ChevronRight style={{ width: 11, height: 11, opacity: 0.25 }} />
+                            </NavLink>
+                        ))}
+                    </nav>
+
+                    {/* User Profile & Logout */}
+                    <div className="px-2 mt-auto mb-4 border-t border-gray-200 dark:border-white/5 pt-4">
+                        <div className="flex items-center justify-between">
+                            <div className="flex flex-col overflow-hidden">
+                                <span className="text-sm font-medium truncate dark:text-gray-300">{user?.full_name || 'Benutzer'}</span>
+                                <span className="text-[10px] text-gray-500 truncate">{user?.email}</span>
+                            </div>
+                            <button
+                                onClick={logout}
+                                className="p-1.5 rounded-md hover:bg-gray-200 dark:hover:bg-white/5 transition-colors text-gray-500 hover:text-red-500"
+                                title="Abmelden"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Footer */}
+                    <div className="px-1 space-y-2">
+                        {/* Theme toggle */}
+                        <button
+                            onClick={() => setIsDark((d: boolean) => !d)}
+                            className="flex items-center gap-2.5 w-full px-2.5 py-2 rounded-xl transition-all"
+                            style={{ color: isDark ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.4)' }}
                         >
-                            <Icon style={{ width: 15, height: 15, flexShrink: 0 }} />
-                            <span className="flex-1 text-sm">{label}</span>
-                            <ChevronRight style={{ width: 11, height: 11, opacity: 0.25 }} />
-                        </NavLink>
-                    ))}
-                </nav>
+                            <div className="relative w-8 h-4 rounded-full flex-shrink-0 transition-colors"
+                                style={{ background: isDark ? '#2563eb' : 'rgba(0,0,0,0.15)' }}>
+                                <div className="absolute top-0.5 w-3 h-3 rounded-full bg-white transition-transform"
+                                    style={{ transform: isDark ? 'translateX(17px)' : 'translateX(2px)' }} />
+                            </div>
+                            <span className="text-xs flex-1">{isDark ? 'Dark Mode' : 'Light Mode'}</span>
+                            {isDark ? <Moon style={{ width: 12, height: 12 }} /> : <Sun style={{ width: 12, height: 12 }} />}
+                        </button>
 
-                {/* Footer */}
-                <div className="px-1 mt-5 space-y-2">
-                    {/* Theme toggle */}
-                    <button
-                        onClick={() => setIsDark(d => !d)}
-                        className="flex items-center gap-2.5 w-full px-2.5 py-2 rounded-xl transition-all"
-                        style={{ color: isDark ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.4)' }}
-                    >
-                        <div className="relative w-8 h-4 rounded-full flex-shrink-0 transition-colors"
-                            style={{ background: isDark ? '#2563eb' : 'rgba(0,0,0,0.15)' }}>
-                            <div className="absolute top-0.5 w-3 h-3 rounded-full bg-white transition-transform"
-                                style={{ transform: isDark ? 'translateX(17px)' : 'translateX(2px)' }} />
+                        {/* DSGVO */}
+                        <div className="flex items-center gap-1.5 px-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-green-500 flex-shrink-0" />
+                            <p className="text-[9px]" style={{ color: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.25)' }}>
+                                DSGVO-konform · EU KI-VO § 52
+                            </p>
                         </div>
-                        <span className="text-xs flex-1">{isDark ? 'Dark Mode' : 'Light Mode'}</span>
-                        {isDark ? <Moon style={{ width: 12, height: 12 }} /> : <Sun style={{ width: 12, height: 12 }} />}
-                    </button>
-
-                    {/* DSGVO */}
-                    <div className="flex items-center gap-1.5 px-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-green-500 flex-shrink-0" />
-                        <p className="text-[9px]" style={{ color: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.25)' }}>
-                            DSGVO-konform · EU KI-VO § 52
-                        </p>
                     </div>
-                </div>
-            </aside>
+                </aside>
+            )}
 
             {/* ── Main content ─────────────────────────────────────────── */}
-            <main className="flex-1 overflow-auto" style={{ background: isDark ? '#141414' : '#f7f7f8' }}>
-                <div className="max-w-6xl mx-auto px-8 py-10">
-                    <Routes>
-                        <Route path="/" element={<Dashboard connectedSites={connectedSites} siteSchedules={siteSchedules} />} />
-                        <Route path="/editor" element={<Editor />} />
-                        <Route path="/schedule" element={<Schedule connectedSites={connectedSites} siteSchedules={siteSchedules} setSiteSchedules={setSiteSchedules} />} />
-                        <Route path="/onboarding" element={<Onboarding connectedSites={connectedSites} setConnectedSites={setConnectedSites} />} />
-                    </Routes>
-                </div>
-            </main>
+            <main className="flex-1 overflow-auto relative" style={{ background: isDark ? '#141414' : '#f7f7f8' }}>
+                <Routes>
+                    {/* Public Routes */}
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
 
-            <AgentBanner status={agentStatus} />
+                    {/* Protected Routes inside full wrapper */}
+                    <Route path="*" element={
+                        <ProtectedRoute>
+                            <div className="max-w-6xl mx-auto px-8 py-10">
+                                <Routes>
+                                    <Route path="/" element={<Dashboard connectedSites={connectedSites} siteSchedules={siteSchedules} />} />
+                                    <Route path="/editor" element={<Editor />} />
+                                    <Route path="/schedule" element={<Schedule connectedSites={connectedSites} siteSchedules={siteSchedules} setSiteSchedules={setSiteSchedules} />} />
+                                    <Route path="/onboarding" element={<Onboarding connectedSites={connectedSites} setConnectedSites={setConnectedSites} />} />
+                                </Routes>
+                            </div>
+                        </ProtectedRoute>
+                    } />
+                </Routes>
+            </main>
         </div>
     )
 }

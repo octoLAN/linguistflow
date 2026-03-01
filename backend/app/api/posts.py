@@ -36,7 +36,6 @@ class PostOut(BaseModel):
         from_attributes = True
 
 
-@router.get("", response_model=list[PostOut])
 @router.get("/drafts", response_model=dict)
 async def get_all_drafts(
     db: AsyncSession = Depends(get_db),

@@ -32,8 +32,13 @@ def _strip_html(html: str) -> str:
 
 async def crawl_page(url: str, max_chars: int = 5000) -> str:
     """Fetch a URL and return clean plain text (first max_chars characters)."""
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.5"
+    }
     try:
-        async with httpx.AsyncClient(timeout=15, follow_redirects=True) as client:
+        async with httpx.AsyncClient(timeout=15, follow_redirects=True, headers=headers) as client:
             resp = await client.get(url)
             resp.raise_for_status()
             text = _strip_html(resp.text)
@@ -79,8 +84,13 @@ async def extract_site_branding(site_url: str, gemini_api_key: str) -> dict:
     Crawls the site URL, extracts raw HTML, and uses Gemini to analyze it for 
     branding colors (60-30-10 rule) and industry keywords.
     """
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.5"
+    }
     try:
-        async with httpx.AsyncClient(timeout=15, follow_redirects=True) as client:
+        async with httpx.AsyncClient(timeout=15, follow_redirects=True, headers=headers) as client:
             resp = await client.get(site_url)
             html_content = resp.text[:15000]  # First 15k chars should contain head/css and main body context
     except Exception as exc:

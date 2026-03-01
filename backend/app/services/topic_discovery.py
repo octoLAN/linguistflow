@@ -35,17 +35,37 @@ async def crawl_page(url: str, max_chars: int = 5000) -> str:
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5"
+        "Accept-Language": "en-US,en;q=0.5",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+        "Cache-Control": "max-age=0"
     }
+    
+    # Configure advanced client to bypass bot protections often found on VPS IPs
+    limits = httpx.Limits(max_keepalive_connections=5, max_connections=10)
+    transport = httpx.AsyncHTTPTransport(retries=2, verify=False) # Skip strict SSL verification for buggy sites
+
     try:
-        async with httpx.AsyncClient(timeout=15, follow_redirects=True, headers=headers) as client:
+        async with httpx.AsyncClient(timeout=30.0, follow_redirects=True, headers=headers, limits=limits, transport=transport, http2=True) as client:
+            logger.info(f"Starting crawl for URL: {url} from advanced crawler.")
             resp = await client.get(url)
             resp.raise_for_status()
             text = _strip_html(resp.text)
+            logger.info(f"Successfully crawled {len(text)} chars from {url}")
             return text[:max_chars]
+    except httpx.HTTPStatusError as e:
+        logger.error(f"crawl_page HTTP Status Error for {url}: {e.response.status_code} - {e.response.text[:200]}")
+    except httpx.RequestError as e:
+        logger.error(f"crawl_page Request Error for {url}: {str(e)}")
     except Exception as exc:
-        logger.warning("crawl_page failed for %s: %s", url, exc)
-        return ""
+        logger.error(f"crawl_page Unexpected Error for {url}: {str(exc)}")
+    
+    return ""
 
 
 async def fetch_rss_headlines(url: str, max_items: int = 8) -> list[str]:
@@ -87,14 +107,30 @@ async def extract_site_branding(site_url: str, gemini_api_key: str) -> dict:
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5"
+        "Accept-Language": "en-US,en;q=0.5",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1"
     }
+    
+    limits = httpx.Limits(max_keepalive_connections=5, max_connections=10)
+    transport = httpx.AsyncHTTPTransport(retries=2, verify=False)
+
     try:
-        async with httpx.AsyncClient(timeout=15, follow_redirects=True, headers=headers) as client:
+        async with httpx.AsyncClient(timeout=30.0, follow_redirects=True, headers=headers, limits=limits, transport=transport, http2=True) as client:
+            logger.info(f"Starting extract_site_branding crawl for: {site_url}")
             resp = await client.get(site_url)
+            resp.raise_for_status()
             html_content = resp.text[:15000]  # First 15k chars should contain head/css and main body context
+            logger.info(f"Successfully downloaded branding HTML for {site_url} ({len(html_content)} bytes)")
+    except httpx.HTTPStatusError as e:
+        logger.error(f"Branding Extract Status Error {site_url}: {e.response.status_code} - {e.response.text[:200]}")
+        html_content = ""
+    except httpx.RequestError as e:
+        logger.error(f"Branding Extract Request Error {site_url}: {str(e)}")
+        html_content = ""
     except Exception as exc:
-        logger.warning(f"Failed to crawl {site_url} for branding: {exc}")
+        logger.error(f"Branding Extract Unexpected Error {site_url}: {str(exc)}")
         html_content = ""
 
     prompt = f"""
